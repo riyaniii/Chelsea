@@ -1,0 +1,5 @@
+NAME = "Chelsea"
+APPLICATION_ID = "io.github.riyaniii.Chelsea"
+RESOURCE_PATH = "/io/github/riyaniii/Chelsea"
+WEBSITE = "https://github.com/riyaniii/Chelsea"
+DONATE_URL = "https://buymeacoffee.com/riyanparvez"

@@ -1,0 +1,172 @@
+using Gtk 4.0;
+using Adw 1;
+
+Adw.ShortcutsDialog shortcuts_dialog {
+  Adw.ShortcutsSection {
+    title: _("General");
+
+    Adw.ShortcutsItem {
+      title: _("Search");
+      action-name: "app.open_search_page";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Home");
+      action-name: "app.open_home_page";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Discover");
+      action-name: "app.open_discover_page";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Library");
+      action-name: "app.open_library_page";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Addons");
+      action-name: "app.open_addons_page";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Preferences");
+      action-name: "app.preferences";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Show Shortcuts");
+      action-name: "app.shortcuts";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Quit");
+      action-name: "app.quit";
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: _("Player");
+
+    Adw.ShortcutsItem {
+      title: _("Play / Pause");
+      accelerator: "space k";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Play at Double Speed While Held");
+      accelerator: "space";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Seek Back 5 Seconds");
+      accelerator: "Left";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Seek Forward 5 Seconds");
+      accelerator: "Right";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Seek Back 10 Seconds");
+      accelerator: "j";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Seek Forward 10 Seconds");
+      accelerator: "l";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Previous Chapter");
+      accelerator: "<Control>Left";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Next Chapter");
+      accelerator: "<Control>Right";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Volume Up");
+      accelerator: "Up";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Volume Down");
+      accelerator: "Down";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Mute");
+      accelerator: "m";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Show / Hide Subtitles");
+      accelerator: "c";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Next Subtitle Track");
+      accelerator: "z";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Previous Subtitle Track");
+      accelerator: "<Shift>z";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Next Audio Track");
+      accelerator: "a";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Previous Audio Track");
+      accelerator: "<Shift>a";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Subtitle Delay");
+      accelerator: "comma period";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Audio Delay");
+      accelerator: "<Control>minus <Control>equal";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Playback Speed");
+      accelerator: "bracketleft bracketright";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Reset Playback Speed");
+      accelerator: "BackSpace";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Toggle Fullscreen");
+      accelerator: "f F11";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Next Episode");
+      accelerator: "n";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Previous Episode");
+      accelerator: "p";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Leave Player");
+      accelerator: "Escape";
+    }
+  }
+}

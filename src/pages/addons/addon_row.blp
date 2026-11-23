@@ -1,0 +1,128 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaAddonRow : Gtk.Box {
+  spacing: 12;
+  margin-top: 12;
+  margin-bottom: 12;
+  margin-start: 6;
+  margin-end: 6;
+
+  Adw.Bin {
+    styles [
+      "addon-logo"
+    ]
+
+    valign: start;
+    overflow: hidden;
+
+    child: Gtk.Image {
+      pixel-size: 48;
+      paintable: bind template.model as <$ChelseaAddon>.paintable;
+    };
+  }
+
+  Gtk.Box {
+    orientation: vertical;
+    spacing: 2;
+    valign: center;
+    hexpand: true;
+
+    Gtk.Box {
+      orientation: horizontal;
+      spacing: 12;
+      Gtk.Label {
+        label: bind template.model as <$ChelseaAddon>.name;
+        xalign: 0.0;
+        ellipsize: end;
+      }
+      Gtk.Label {
+        label: bind template.model as <$ChelseaAddon>.version;
+        xalign: 1.0;
+        ellipsize: end;
+        styles [
+          "dimmed"
+        ]
+      }
+    }
+
+    Gtk.Label {
+      styles [
+        "dimmed"
+      ]
+
+      label: bind template.model as <$ChelseaAddon>.description as <string>;
+      xalign: 0.0;
+      wrap: true;
+    }
+  }
+
+  Gtk.Box {
+    orientation: horizontal;
+    spacing: 6;
+    valign: start;
+
+    Gtk.Button {
+      styles [
+        "flat",
+        "circular"
+      ]
+
+      halign: end;
+      icon-name: "emblem-system-symbolic";
+      tooltip-text: _("Configure");
+      visible: bind template.model as <$ChelseaAddon>.configurable;
+      clicked => $on_configure_clicked();
+    }
+
+    Gtk.Stack {
+      transition-type: crossfade;
+      hhomogeneous: false;
+      halign: end;
+      visible-child-name: bind $action_page(template.model as <$ChelseaAddon>.busy, template.model as <$ChelseaAddon>.installed, template.model as <$ChelseaAddon>.is_protected) as <string>;
+
+      Gtk.StackPage {
+        name: "busy";
+
+        child: Adw.Spinner {
+          halign: end;
+        };
+      }
+
+      Gtk.StackPage {
+        name: "install";
+
+        child: Gtk.Button {
+          styles [
+            "suggested-action"
+          ]
+
+          label: _("Install");
+          clicked => $on_action_clicked();
+        };
+      }
+
+      Gtk.StackPage {
+        name: "remove";
+
+        child: Gtk.Button {
+                    label: _("Remove");
+          clicked => $on_action_clicked();
+        };
+      }
+
+      Gtk.StackPage {
+        name: "required";
+
+        child: Gtk.Label {
+          styles [
+            "dimmed",
+            "caption"
+          ]
+
+          label: _("Required");
+        };
+      }
+    }
+  }
+}

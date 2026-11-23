@@ -1,0 +1,192 @@
+using Gtk 4.0;
+
+template $ChelseaOptionsButton : Gtk.MenuButton {
+  name: "options";
+
+  styles [
+    "circular",
+    "flat"
+  ]
+
+  direction: up;
+  halign: center;
+  icon-name: "cine-options-symbolic";
+  tooltip-text: _("Options");
+
+  popover: Gtk.Popover {
+    child: Gtk.ScrolledWindow {
+      propagate-natural-height: true;
+      propagate-natural-width: true;
+
+      child: Gtk.Box {
+        orientation: vertical;
+        spacing: 8;
+
+        Gtk.Button {
+          hexpand: true;
+          label: _("Reset All");
+          clicked => $on_reset_all();
+        }
+
+        Gtk.Box {
+          Gtk.Box {
+            halign: start;
+
+            Gtk.Button sub_delay_reset_btn {
+              styles [
+                "flat"
+              ]
+
+              icon-name: "edit-undo-symbolic";
+              tooltip-text: _("Reset Subtitle Delay");
+              clicked => $on_sub_delay_reset();
+            }
+
+            Gtk.Label {
+              styles [
+                "heading"
+              ]
+
+              label: _("Subtitle Delay");
+              wrap: true;
+              natural-wrap-mode: word;
+              halign: start;
+              margin-start: 8;
+              xalign: 0;
+            }
+          }
+
+          Gtk.Separator {
+            hexpand: true;
+            opacity: 0;
+            margin-end: 2;
+          }
+
+          Gtk.SpinButton sub_delay_spin {
+            styles [
+              "options-spin"
+            ]
+
+            halign: end;
+            climb-rate: 1;
+            digits: 1;
+            value-changed => $on_sub_delay_changed();
+
+            adjustment: Gtk.Adjustment {
+              lower: -999.9;
+              upper: 999.9;
+              step-increment: 0.1;
+              value: 0;
+            };
+          }
+        }
+
+        Gtk.Box {
+          Gtk.Box {
+            halign: start;
+
+            Gtk.Button audio_delay_reset_btn {
+              styles [
+                "flat"
+              ]
+
+              icon-name: "edit-undo-symbolic";
+              tooltip-text: _("Reset Audio Delay");
+              clicked => $on_audio_delay_reset();
+            }
+
+            Gtk.Label {
+              styles [
+                "heading"
+              ]
+
+              label: _("Audio Delay");
+              wrap: true;
+              natural-wrap-mode: word;
+              halign: start;
+              margin-start: 8;
+              xalign: 0;
+            }
+          }
+
+          Gtk.Separator {
+            hexpand: true;
+            opacity: 0;
+            margin-end: 2;
+          }
+
+          Gtk.SpinButton audio_delay_spin {
+            styles [
+              "options-spin"
+            ]
+
+            halign: end;
+            climb-rate: 1;
+            digits: 1;
+            value-changed => $on_audio_delay_changed();
+
+            adjustment: Gtk.Adjustment {
+              lower: -999.9;
+              upper: 999.9;
+              step-increment: 0.1;
+              value: 0;
+            };
+          }
+        }
+
+        Gtk.Box {
+          Gtk.Box {
+            halign: start;
+
+            Gtk.Button speed_reset_btn {
+              styles [
+                "flat"
+              ]
+
+              icon-name: "edit-undo-symbolic";
+              tooltip-text: _("Reset Playback Speed");
+              clicked => $on_speed_reset();
+            }
+
+            Gtk.Label {
+              styles [
+                "heading"
+              ]
+
+              label: _("Playback Speed");
+              wrap: true;
+              natural-wrap-mode: word;
+              halign: start;
+              margin-start: 8;
+              xalign: 0;
+            }
+          }
+
+          Gtk.Separator {
+            hexpand: true;
+            opacity: 0;
+            margin-end: 2;
+          }
+
+          Gtk.SpinButton speed_spin {
+            styles [
+              "options-spin"
+            ]
+
+            halign: end;
+            climb-rate: 1;
+            digits: 2;
+            value-changed => $on_speed_changed();
+
+            adjustment: Gtk.Adjustment {
+              lower: 0.25;
+              upper: 10;
+              step-increment: 0.25;
+              value: 1;
+            };
+          }
+        }
+      };
+    };
+  };
+}

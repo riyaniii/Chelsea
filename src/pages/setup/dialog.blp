@@ -1,0 +1,351 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaSetupDialog : Adw.Dialog {
+  content-width: 480;
+  content-height: 640;
+
+  child: Adw.ToastOverlay toast_overlay {
+    child: Gtk.Stack stack {
+      transition-type: crossfade;
+
+      Gtk.StackPage {
+        name: "pages";
+
+        child: Adw.NavigationView navigation {
+          Adw.NavigationPage welcome_page {
+            title: _("Welcome");
+            tag: "welcome";
+
+            child: Adw.ToolbarView {
+              [top]
+              Adw.HeaderBar {
+                show-title: false;
+              }
+
+              content: Adw.StatusPage {
+                icon-name: "io.github.riyaniii.Chelsea";
+                title: _("Welcome to Chelsea");
+                description: _("Watch movies and series from your Stremio addons");
+
+                child: Adw.Clamp {
+                  maximum-size: 360;
+
+                  child: Gtk.ListBox {
+                    styles ["boxed-list"]
+                    selection-mode: none;
+
+                    Adw.ActionRow {
+                      title: _("Sign In to Stremio");
+                      subtitle: _("Sync your library, progress and addons");
+                      activatable: true;
+                      activated => $on_sign_in_activated();
+
+                      [suffix]
+                      Gtk.Image {
+                        icon-name: "go-next-symbolic";
+                      }
+                    }
+
+                    Adw.ActionRow {
+                      title: _("Continue Without an Account");
+                      subtitle: _("Keep everything on this computer");
+                      activatable: true;
+                      activated => $on_guest_activated();
+
+                      [suffix]
+                      Gtk.Image {
+                        icon-name: "go-next-symbolic";
+                      }
+                    }
+                  };
+                };
+              };
+            };
+          }
+
+          Adw.NavigationPage login_page {
+            title: _("Sign In");
+            tag: "login";
+
+            child: Adw.ToolbarView {
+              [top]
+              Adw.HeaderBar {
+                show-title: false;
+              }
+
+              content: Gtk.ScrolledWindow {
+                hscrollbar-policy: never;
+
+                child: Adw.Clamp {
+                  maximum-size: 360;
+                  valign: center;
+
+                  child: Gtk.Box {
+                    orientation: vertical;
+                    spacing: 24;
+                    margin-top: 24;
+                    margin-bottom: 24;
+                    margin-start: 12;
+                    margin-end: 12;
+
+                    Adw.Avatar login_avatar {
+                      size: 128;
+                      show-initials: false;
+                      icon-name: "avatar-default-symbolic";
+                      halign: center;
+                    }
+
+                    Gtk.Box {
+                      orientation: vertical;
+                      spacing: 6;
+
+                      Gtk.Label {
+                        styles ["title-2"]
+                        label: _("Sign In");
+                      }
+
+                      Gtk.Label {
+                        styles ["dimmed"]
+                        label: _("Use your Stremio account");
+                        wrap: true;
+                        justify: center;
+                      }
+                    }
+
+                    Gtk.ListBox {
+                      styles ["boxed-list"]
+                      selection-mode: none;
+
+                      Adw.EntryRow email_row {
+                        title: _("Email");
+                        input-purpose: email;
+                        entry-activated => $on_sign_in();
+                      }
+
+                      Adw.PasswordEntryRow password_row {
+                        title: _("Password");
+                        entry-activated => $on_sign_in();
+                      }
+                    }
+
+                    Gtk.Label login_error_label {
+                      styles ["error"]
+                      wrap: true;
+                      justify: center;
+                      visible: false;
+                    }
+
+                    Gtk.Box {
+                      orientation: vertical;
+                      spacing: 6;
+
+                      Gtk.Button {
+                        styles ["suggested-action"]
+                        label: _("Sign In");
+                        halign: center;
+                        clicked => $on_sign_in();
+                      }
+
+                      Gtk.LinkButton {
+                        label: _("Create an Account");
+                        uri: "https://www.stremio.com/register";
+                        halign: center;
+                      }
+                    }
+                  };
+                };
+              };
+            };
+          }
+
+          Adw.NavigationPage tour_page {
+            title: _("Welcome");
+            tag: "tour";
+            can-pop: false;
+
+            child: Adw.ToolbarView {
+              [top]
+              Adw.HeaderBar {
+                show-title: false;
+              }
+
+              content: Adw.Carousel carousel {
+                interactive: false;
+                notify::position => $on_position_changed();
+
+                Adw.StatusPage {
+                  hexpand: true;
+                  styles ["compact"]
+                  icon-name: "application-x-addon-symbolic";
+                  title: _("Add a Stream Addon");
+                  description: _("Chelsea finds titles with Cinemeta, but streams come from addons you install. Open Addons and pick one from the catalog, or paste an addon link into the filter.");
+                }
+
+                Adw.StatusPage {
+                  hexpand: true;
+                  styles ["compact"]
+                  icon-name: "chain-link-symbolic";
+                  title: _("Torrents");
+                  description: _("Torrent streams play through the built-in engine. These are fine for most connections.");
+
+                  child: Adw.Clamp {
+                    maximum-size: 340;
+
+                    child: Gtk.ListBox {
+                      styles ["boxed-list"]
+                      selection-mode: none;
+
+                      Adw.ComboRow profile_row {
+                        title: _("Connection Profile");
+
+                        model: Gtk.StringList {
+                          strings [_("Gentle"), _("Balanced"), _("Fast")]
+                        };
+                      }
+
+                      Adw.SpinRow cache_row {
+                        title: _("Disk Cache (GB)");
+
+                        adjustment: Gtk.Adjustment {
+                          lower: 1;
+                          upper: 200;
+                          step-increment: 1;
+                          page-increment: 10;
+                        };
+                      }
+
+                      Adw.SwitchRow upload_row {
+                        title: _("Share While Watching");
+                      }
+                    };
+                  };
+                }
+
+                Adw.StatusPage {
+                  hexpand: true;
+                  styles ["compact"]
+                  icon-name: "media-playback-start-symbolic";
+                  title: _("Playback");
+                  description: _("Language codes like eng or jpn pick tracks automatically when a video has several.");
+
+                  child: Adw.Clamp {
+                    maximum-size: 340;
+
+                    child: Gtk.ListBox {
+                      styles ["boxed-list"]
+                      selection-mode: none;
+
+                      Adw.SwitchRow hwdec_row {
+                        title: _("Hardware Decoding");
+                      }
+
+                      Adw.EntryRow audio_language_row {
+                        title: _("Audio Languages");
+                      }
+
+                      Adw.EntryRow subtitle_language_row {
+                        title: _("Subtitle Languages");
+                      }
+                    };
+                  };
+                }
+
+                Adw.StatusPage {
+                  hexpand: true;
+                  styles ["compact"]
+                  icon-name: "folder-download-symbolic";
+                  title: _("Downloads");
+                  description: _("Downloads are saved in a folder for each movie or series inside this location.");
+
+                  child: Adw.Clamp {
+                    maximum-size: 340;
+
+                    child: Gtk.ListBox {
+                      styles ["boxed-list"]
+                      selection-mode: none;
+
+                      Adw.ActionRow download_folder_row {
+                        styles ["property"]
+                        title: _("Download Location");
+                        activatable: true;
+                        activated => $on_download_folder_activated();
+
+                        [suffix]
+                        Gtk.Image {
+                          icon-name: "folder-open-symbolic";
+                        }
+                      }
+
+                      Adw.SwitchRow ask_location_row {
+                        title: _("Ask Every Time");
+                        subtitle: _("Choose where to save each download");
+                      }
+                    };
+                  };
+                }
+
+                Adw.StatusPage {
+                  hexpand: true;
+                  styles ["compact"]
+                  icon-name: "circle-check-cross-symbolic";
+                  title: _("You're All Set");
+                  description: _("You can change any of this later in Preferences. Enjoy watching with Chelsea!");
+                }
+              };
+
+              [bottom]
+              Gtk.CenterBox {
+                margin-start: 12;
+                margin-end: 12;
+                margin-top: 6;
+                margin-bottom: 12;
+
+                [start]
+                Gtk.Button back_button {
+                  styles ["flat"]
+                  label: _("Back");
+                  valign: center;
+                  clicked => $on_back();
+                }
+
+                [center]
+                Adw.CarouselIndicatorDots {
+                  carousel: carousel;
+                }
+
+                [end]
+                Gtk.Button next_button {
+                  styles ["suggested-action"]
+                  label: _("Next");
+                  valign: center;
+                  clicked => $on_next();
+                }
+              }
+            };
+          }
+        };
+      }
+
+      Gtk.StackPage {
+        name: "busy";
+
+        child: Adw.ToolbarView {
+          [top]
+          Adw.HeaderBar {
+            show-title: false;
+          }
+
+          content: Adw.StatusPage {
+            title: _("Signing In…");
+
+            child: Adw.Spinner {
+              width-request: 48;
+              height-request: 48;
+            };
+          };
+        };
+      }
+    };
+  };
+}

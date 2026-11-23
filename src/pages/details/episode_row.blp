@@ -1,0 +1,104 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaEpisodeRow : Gtk.ListBoxRow {
+  activatable: true;
+
+  child: Gtk.Box {
+    spacing: 12;
+    margin-top: 6;
+    margin-bottom: 6;
+    margin-start: 0;
+    margin-end: 0;
+    opacity: bind $row_opacity(template.video as <$ChelseaVideo>.watched) as <float>;
+
+    Gtk.AspectFrame {
+      ratio: 1.778;
+      obey-child: false;
+      valign: center;
+
+      child: Gtk.Overlay {
+        child: Gtk.Stack {
+          styles [
+            "r5",
+            "poster"
+          ]
+
+          overflow: hidden;
+          transition-type: crossfade;
+          visible-child-name: bind $image_page(template.video as <$ChelseaVideo>.paintable) as <string>;
+
+          Gtk.StackPage {
+            name: "empty";
+            child: Adw.Bin {};
+          }
+
+          Gtk.StackPage {
+            name: "image";
+
+            child: Gtk.Picture {
+              paintable: bind template.video as <$ChelseaVideo>.paintable;
+              content-fit: cover;
+              width-request: 150;
+            };
+          }
+        };
+
+        [overlay]
+        Gtk.ProgressBar {
+          styles [
+            "white-progress"
+          ]
+
+          valign: end;
+          margin-start: 6;
+          margin-end: 6;
+          margin-bottom: 6;
+          fraction: bind template.video as <$ChelseaVideo>.progress;
+          visible: bind $has_progress(template.video as <$ChelseaVideo>.progress) as <bool>;
+        }
+      };
+    }
+
+    Gtk.Box {
+      orientation: vertical;
+      hexpand: true;
+      valign: start;
+      spacing: 2;
+
+      Gtk.Box {
+        spacing: 6;
+
+        Gtk.Label {
+          hexpand: true;
+          xalign: 0;
+          ellipsize: end;
+          label: bind $title_text(template.video as <$ChelseaVideo>.episode, template.video as <$ChelseaVideo>.title) as <string>;
+        }
+
+        Gtk.Label {
+          styles [
+            "dimmed",
+            "caption"
+          ]
+
+          label: bind $date_text(template.video as <$ChelseaVideo>.released) as <string>;
+        }
+      }
+
+      Gtk.Label {
+        styles [
+          "dimmed"
+        ]
+
+        label: bind template.video as <$ChelseaVideo>.overview;
+        visible: bind $has_text(template.video as <$ChelseaVideo>.overview) as <bool>;
+        xalign: 0;
+        wrap: true;
+        wrap-mode: word_char;
+        lines: 3;
+        ellipsize: end;
+      }
+    }
+  };
+}

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Chelsea
+Exec=chelsea %U
+Icon=io.github.riyaniii.Chelsea
+Terminal=false
+Type=Application
+Comment=Stream movies and series with Stremio addons
+Categories=AudioVideo;Video;Player;GTK;
+Keywords=stremio;movies;series;tv;torrent;player;
+StartupNotify=true
+MimeType=x-scheme-handler/stremio;
+DBusActivatable=true

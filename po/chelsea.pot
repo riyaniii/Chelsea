@@ -1,0 +1,1173 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the chelsea package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: chelsea\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-23 11:46+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/io.github.riyaniii.Chelsea.desktop.in:2
+#: data/io.github.riyaniii.Chelsea.metainfo.xml.in:7
+#: src/components/main_view.blp:20 src/components/window.blp:5
+msgid "Chelsea"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.desktop.in:7
+msgid "Stream movies and series with Stremio addons"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.desktop.in:9
+msgid "stremio;movies;series;tv;torrent;player;"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:6
+msgid "Profiles"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:7
+msgid ""
+"Saved profiles, each with an id, a name, a kind (\"stremio\" or \"guest\") "
+"and the account email. Session keys are kept in the system keyring."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:11
+msgid "Last profile"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:12
+msgid "The id of the profile that was used last."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:16
+msgid "Donation reminder last shown"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:17
+msgid ""
+"When the donation dialog was last shown, in seconds since 1970. It is shown "
+"again after 30 days."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:21
+msgid "Setup finished"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:22
+msgid "Whether the first-run setup and tour have been completed."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:26
+msgid "Download folder"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:27
+msgid ""
+"Where downloads are saved, each in a folder named after its movie or series. "
+"Empty means the Downloads folder."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:31
+msgid "Ask where to save downloads"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:32
+msgid "Ask for a location every time something is downloaded."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:36
+msgid "Hardware decoding"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:37
+msgid "Let mpv decode video on the GPU when it is safe to do so."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:41
+msgid "Preferred audio languages"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:42
+msgid ""
+"A comma separated list of language codes passed to mpv as alang, for example "
+"\"eng,jpn\"."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:46
+msgid "Preferred subtitle languages"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:47
+msgid ""
+"A comma separated list of language codes passed to mpv as slang, for example "
+"\"eng\"."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:52
+msgid "Player volume"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:53
+msgid "The last volume used in the player."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:57
+msgid "Show remaining time"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:58
+msgid "Show the time left instead of the time played in the player."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:67
+msgid "Torrent connection profile"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:68
+msgid "How aggressively the Nuvio engine connects to peers."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:73
+msgid "Torrent disk cache size"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:74
+msgid "How many gigabytes of torrent data the engine keeps on disk."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:78
+msgid "Share while watching"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.gschema.xml:79
+msgid "Upload torrent data to other peers during playback."
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.metainfo.xml.in:8
+msgid "Watch movies and series"
+msgstr ""
+
+#: data/io.github.riyaniii.Chelsea.metainfo.xml.in:10
+msgid ""
+"Chelsea is a Stremio client for GNOME. Browse catalogs from your addons, "
+"keep a synced library, and play streams and torrents in a built-in mpv "
+"player."
+msgstr ""
+
+#: src/components/donate.blp:5 src/components/donate.blp:30
+msgid "Support Chelsea"
+msgstr ""
+
+#: src/components/donate.blp:36
+msgid ""
+"Chelsea is made and maintained by a student in their free time. If you enjoy "
+"it, please consider donating, it really helps keep the app going."
+msgstr ""
+
+#: src/components/donate.blp:49 src/main.py:185
+msgid "Buy Me a Coffee"
+msgstr ""
+
+#: src/components/donate.blp:55
+msgid "Maybe Later"
+msgstr ""
+
+#: src/components/download_location.py:21 src/pages/preferences/dialog.blp:109
+#: src/pages/setup/dialog.blp:270
+msgid "Download Location"
+msgstr ""
+
+#: src/components/formats.py:28
+#, python-brace-format
+msgid "S{season}E{episode}"
+msgstr ""
+
+#: src/components/formats.py:38
+msgid "Movies"
+msgstr ""
+
+#: src/components/formats.py:39
+msgid "Series"
+msgstr ""
+
+#: src/components/formats.py:40
+msgid "Channels"
+msgstr ""
+
+#: src/components/formats.py:41
+msgid "TV"
+msgstr ""
+
+#: src/components/formats.py:42
+msgid "Anime"
+msgstr ""
+
+#: src/components/formats.py:43
+msgid "Other"
+msgstr ""
+
+#: src/components/hero.blp:145
+msgid "Trailer"
+msgstr ""
+
+#: src/components/hero.py:62 src/pages/details/page.py:17
+#: src/pages/details/page.py:91 src/pages/search/page.py:114
+msgid "Play"
+msgstr ""
+
+#: src/components/hero.py:119
+msgid "Director"
+msgstr ""
+
+#: src/components/hero.py:122
+msgid "Cast"
+msgstr ""
+
+#: src/components/hero.py:161
+msgid "In Library"
+msgstr ""
+
+#: src/components/hero.py:161
+msgid "Add to Library"
+msgstr ""
+
+#: src/components/main_view.blp:40
+msgid "Main Menu"
+msgstr ""
+
+#: src/components/main_view.blp:53 src/components/shortcuts.blp:14
+msgid "Home"
+msgstr ""
+
+#: src/components/main_view.blp:60 src/components/shortcuts.blp:9
+#: src/pages/search/page.blp:32
+msgid "Search"
+msgstr ""
+
+#: src/components/main_view.blp:67 src/components/shortcuts.blp:24
+msgid "Library"
+msgstr ""
+
+#: src/components/main_view.blp:74 src/components/shortcuts.blp:19
+msgid "Discover"
+msgstr ""
+
+#: src/components/main_view.blp:81 src/pages/downloads/page.blp:43
+#: src/pages/preferences/dialog.blp:100 src/pages/preferences/dialog.blp:104
+#: src/pages/setup/dialog.blp:258
+msgid "Downloads"
+msgstr ""
+
+#: src/components/main_view.blp:88 src/components/shortcuts.blp:29
+msgid "Addons"
+msgstr ""
+
+#: src/components/main_view.blp:107
+msgid "_Switch Profile"
+msgstr ""
+
+#: src/components/main_view.blp:114
+msgid "_Preferences"
+msgstr ""
+
+#: src/components/main_view.blp:119
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: src/components/main_view.blp:124
+msgid "_Support Chelsea"
+msgstr ""
+
+#: src/components/main_view.blp:129
+msgid "_About Chelsea"
+msgstr ""
+
+#: src/components/row.blp:28
+msgid "See All"
+msgstr ""
+
+#: src/components/row.blp:57
+msgid "Nothing to show"
+msgstr ""
+
+#: src/components/shortcuts.blp:6
+msgid "General"
+msgstr ""
+
+#: src/components/shortcuts.blp:34
+msgid "Preferences"
+msgstr ""
+
+#: src/components/shortcuts.blp:39
+msgid "Show Shortcuts"
+msgstr ""
+
+#: src/components/shortcuts.blp:44
+msgid "Quit"
+msgstr ""
+
+#: src/components/shortcuts.blp:50
+msgid "Player"
+msgstr ""
+
+#: src/components/shortcuts.blp:53
+msgid "Play / Pause"
+msgstr ""
+
+#: src/components/shortcuts.blp:58
+msgid "Seek Back 10 Seconds"
+msgstr ""
+
+#: src/components/shortcuts.blp:63
+msgid "Seek Forward 10 Seconds"
+msgstr ""
+
+#: src/components/shortcuts.blp:68
+msgid "Volume Up"
+msgstr ""
+
+#: src/components/shortcuts.blp:73
+msgid "Volume Down"
+msgstr ""
+
+#: src/components/shortcuts.blp:78 src/pages/player/page.blp:207
+msgid "Mute"
+msgstr ""
+
+#: src/components/shortcuts.blp:83 src/pages/player/page.blp:435
+msgid "Toggle Fullscreen"
+msgstr ""
+
+#: src/components/shortcuts.blp:88
+msgid "Cycle Subtitles"
+msgstr ""
+
+#: src/components/shortcuts.blp:93 src/pages/player/page.blp:181
+msgid "Next Episode"
+msgstr ""
+
+#: src/components/shortcuts.blp:98 src/pages/player/page.blp:158
+msgid "Previous Episode"
+msgstr ""
+
+#: src/components/shortcuts.blp:103
+msgid "Leave Player"
+msgstr ""
+
+#: src/integrations/stremio.py:125
+msgid "Sign in again to use this profile"
+msgstr ""
+
+#: src/integrations/stremio.py:148
+#, python-brace-format
+msgid "Could not reach Stremio: {}"
+msgstr ""
+
+#: src/integrations/stremio.py:152
+msgid "Stremio sent an invalid response"
+msgstr ""
+
+#: src/integrations/stremio.py:158
+msgid "Login failed"
+msgstr ""
+
+#: src/integrations/stremio.py:159
+msgid "Stremio request failed"
+msgstr ""
+
+#: src/integrations/stremio.py:164
+msgid "Not signed in"
+msgstr ""
+
+#: src/integrations/stremio.py:195
+msgid "The email or password is wrong."
+msgstr ""
+
+#: src/integrations/stremio.py:340
+msgid "This is not a Stremio addon"
+msgstr ""
+
+#: src/integrations/stremio.py:417
+msgid "This addon can't be removed"
+msgstr ""
+
+#: src/integrations/stremio.py:512
+msgid "No addon could load this title"
+msgstr ""
+
+#: src/main.py:181
+msgid "translator-credits"
+msgstr ""
+
+#: src/main.py:186
+msgid "Read comics from dozens of sources"
+msgstr ""
+
+#: src/main.py:187
+msgid "Built With"
+msgstr ""
+
+#: src/main.py:201
+msgid "Icons"
+msgstr ""
+
+#: src/main.py:202
+msgid "Some icons come from the GNOME Icon Development Kit"
+msgstr ""
+
+#: src/main.py:204
+msgid "These icons are dedicated to the public domain (CC0 1.0)."
+msgstr ""
+
+#: src/pages/addons/addon_row.blp:61
+msgid "Configure"
+msgstr ""
+
+#: src/pages/addons/addon_row.blp:88
+msgid "Install"
+msgstr ""
+
+#: src/pages/addons/addon_row.blp:97 src/pages/downloads/page.py:40
+#: src/pages/downloads/row.blp:60 src/pages/profiles/page.py:92
+msgid "Remove"
+msgstr ""
+
+#: src/pages/addons/addon_row.blp:111
+msgid "Required"
+msgstr ""
+
+#: src/pages/addons/page.blp:17
+msgid "Filter addons or paste an addon link"
+msgstr ""
+
+#: src/pages/addons/page.py:35
+msgid "From Link"
+msgstr ""
+
+#: src/pages/addons/page.py:36
+msgid "Installed"
+msgstr ""
+
+#: src/pages/addons/page.py:37
+msgid "Discover Addons"
+msgstr ""
+
+#: src/pages/addons/page.py:59
+msgid "Could not load the addon catalog"
+msgstr ""
+
+#: src/pages/addons/page.py:110
+msgid "This link is not a Stremio addon"
+msgstr ""
+
+#: src/pages/addons/page.py:122
+#, python-brace-format
+msgid "Could not install the addon: {}"
+msgstr ""
+
+#: src/pages/addons/page.py:128
+#, python-brace-format
+msgid "Installed {}"
+msgstr ""
+
+#: src/pages/addons/page.py:136
+#, python-brace-format
+msgid "Could not remove the addon: {}"
+msgstr ""
+
+#: src/pages/addons/page.py:141
+#, python-brace-format
+msgid "Removed {}"
+msgstr ""
+
+#: src/pages/details/episode_row.py:31 src/pages/details/panel.py:15
+#, python-brace-format
+msgid "Episode {}"
+msgstr ""
+
+#: src/pages/details/page.blp:57
+msgid "Could Not Load This Title"
+msgstr ""
+
+#: src/pages/details/page.blp:61
+msgid "Try Again"
+msgstr ""
+
+#: src/pages/details/page.py:18 src/pages/details/page.py:67
+#: src/pages/details/panel.py:15
+msgid "Streams"
+msgstr ""
+
+#: src/pages/details/page.py:67 src/pages/details/panel.blp:7
+msgid "Episodes"
+msgstr ""
+
+#: src/pages/details/page.py:89
+#, python-brace-format
+msgid "Resume {}"
+msgstr ""
+
+#: src/pages/details/page.py:89
+#, python-brace-format
+msgid "Play {}"
+msgstr ""
+
+#: src/pages/details/page.py:91 src/pages/downloads/row.py:48
+msgid "Resume"
+msgstr ""
+
+#: src/pages/details/panel.blp:18 src/pages/details/panel.py:11
+msgid "Close"
+msgstr ""
+
+#: src/pages/details/panel.blp:24
+msgid "Season"
+msgstr ""
+
+#: src/pages/details/panel.blp:37
+msgid "No Episodes"
+msgstr ""
+
+#: src/pages/details/panel.blp:38
+msgid "This title has no episodes yet"
+msgstr ""
+
+#: src/pages/details/panel.py:54
+msgid "Specials"
+msgstr ""
+
+#: src/pages/details/panel.py:54
+#, python-brace-format
+msgid "Season {}"
+msgstr ""
+
+#: src/pages/details/stream_card.blp:45
+msgid "More"
+msgstr ""
+
+#: src/pages/details/stream_card.blp:53
+msgid "Play From Start"
+msgstr ""
+
+#: src/pages/details/stream_card.blp:58
+msgid "Download"
+msgstr ""
+
+#: src/pages/details/stream_card.blp:65
+msgid "Copy Link"
+msgstr ""
+
+#: src/pages/details/stream_card.blp:70
+msgid "Open in External Player"
+msgstr ""
+
+#: src/pages/details/streams_view.blp:31 src/pages/player/page.py:345
+msgid "Looking for Streams"
+msgstr ""
+
+#: src/pages/details/streams_view.blp:32
+msgid "Asking your addons for sources"
+msgstr ""
+
+#: src/pages/details/streams_view.blp:47 src/pages/player/page.py:349
+msgid "No Streams Found"
+msgstr ""
+
+#: src/pages/details/streams_view.blp:48
+msgid "Install an addon that provides streams for this title"
+msgstr ""
+
+#: src/pages/details/streams_view.blp:52 src/pages/home/page.blp:33
+msgid "Browse Addons"
+msgstr ""
+
+#: src/pages/details/streams_view.py:81
+msgid "This stream can't be downloaded"
+msgstr ""
+
+#: src/pages/details/streams_view.py:86
+msgid "Link copied"
+msgstr ""
+
+#: src/pages/details/streams_view.py:94 src/pages/details/streams_view.py:107
+#, python-brace-format
+msgid "Downloading {}"
+msgstr ""
+
+#: src/pages/details/streams_view.py:97
+msgid "Save Download"
+msgstr ""
+
+#: src/pages/discover/page.blp:16 src/pages/library/page.blp:17
+msgid "Type"
+msgstr ""
+
+#: src/pages/discover/page.blp:21
+msgid "Catalog"
+msgstr ""
+
+#: src/pages/discover/page.blp:26
+msgid "Genre"
+msgstr ""
+
+#: src/pages/discover/page.blp:51
+msgid "Nothing Here"
+msgstr ""
+
+#: src/pages/discover/page.blp:52
+msgid "This catalog has no titles"
+msgstr ""
+
+#: src/pages/discover/page.py:10
+msgid "All Genres"
+msgstr ""
+
+#: src/pages/discover/page.py:114
+msgid "Install an addon that provides catalogs"
+msgstr ""
+
+#: src/pages/discover/page.py:130 src/pages/home/page.py:117
+msgid "Could not load this catalog"
+msgstr ""
+
+#: src/pages/downloads/page.blp:13
+msgid "No Downloads"
+msgstr ""
+
+#: src/pages/downloads/page.blp:14
+msgid "Use the menu next to a stream to save it for offline viewing"
+msgstr ""
+
+#: src/pages/downloads/page.blp:55
+msgid "Open Downloads Folder"
+msgstr ""
+
+#: src/pages/downloads/page.blp:66
+msgid "Clear Finished"
+msgstr ""
+
+#: src/pages/downloads/page.py:37
+msgid "Remove Download?"
+msgstr ""
+
+#: src/pages/downloads/page.py:38
+msgid "The unfinished file is deleted."
+msgstr ""
+
+#: src/pages/downloads/page.py:39 src/pages/profiles/page.py:91
+msgid "Cancel"
+msgstr ""
+
+#: src/pages/downloads/row.py:28
+msgid "Failed"
+msgstr ""
+
+#: src/pages/downloads/row.py:31
+#, python-brace-format
+msgid "{done} of {total}"
+msgstr ""
+
+#: src/pages/downloads/row.py:48
+msgid "Pause"
+msgstr ""
+
+#: src/pages/downloads/row.py:48
+msgid "Open"
+msgstr ""
+
+#: src/pages/downloads/row.py:48
+msgid "Retry"
+msgstr ""
+
+#: src/pages/home/page.blp:24 src/pages/setup/dialog.blp:28
+msgid "Welcome to Chelsea"
+msgstr ""
+
+#: src/pages/home/page.blp:25
+msgid "Start by installing an addon that provides catalogs"
+msgstr ""
+
+#: src/pages/home/page.py:29
+msgid "Continue Watching"
+msgstr ""
+
+#: src/pages/library/page.blp:22
+msgid "Sort"
+msgstr ""
+
+#: src/pages/library/page.blp:27
+msgid "Recently Watched"
+msgstr ""
+
+#: src/pages/library/page.blp:28
+msgid "Recently Added"
+msgstr ""
+
+#: src/pages/library/page.blp:29
+msgid "Title"
+msgstr ""
+
+#: src/pages/library/page.blp:43
+msgid "Your Library Is Empty"
+msgstr ""
+
+#: src/pages/library/page.blp:44
+msgid "Titles you add to your library show up here"
+msgstr ""
+
+#: src/pages/library/page.blp:52 src/pages/setup/dialog.blp:39
+msgid "Sign In to Stremio"
+msgstr ""
+
+#: src/pages/library/page.py:30 src/pages/library/page.py:49
+msgid "All"
+msgstr ""
+
+#: src/pages/player/page.blp:169
+msgid "Play/Pause"
+msgstr ""
+
+#: src/pages/player/page.blp:194
+msgid "Volume"
+msgstr ""
+
+#: src/pages/player/page.blp:241
+msgid "Subtitles"
+msgstr ""
+
+#: src/pages/player/page.blp:254
+msgid "Audio Tracks"
+msgstr ""
+
+#: src/pages/player/page.blp:266
+msgid "Video Tracks"
+msgstr ""
+
+#: src/pages/player/page.blp:278
+msgid "Chapters"
+msgstr ""
+
+#: src/pages/player/page.blp:296
+msgid "Options"
+msgstr ""
+
+#: src/pages/player/page.blp:308
+msgid "Subtitle Delay"
+msgstr ""
+
+#: src/pages/player/page.blp:337
+msgid "Reset Subtitle Delay"
+msgstr ""
+
+#: src/pages/player/page.blp:347
+msgid "Audio Delay"
+msgstr ""
+
+#: src/pages/player/page.blp:376
+msgid "Reset Audio Delay"
+msgstr ""
+
+#: src/pages/player/page.blp:386
+msgid "Playback Speed"
+msgstr ""
+
+#: src/pages/player/page.blp:416
+msgid "Reset Playback Speed"
+msgstr ""
+
+#: src/pages/player/page.blp:477
+msgid "Toggle Remaining Time"
+msgstr ""
+
+#: src/pages/player/page.py:28
+#, python-brace-format
+msgid "Track {}"
+msgstr ""
+
+#: src/pages/player/page.py:161
+msgid "Opening Stream"
+msgstr ""
+
+#: src/pages/player/page.py:170
+msgid "Playing video"
+msgstr ""
+
+#: src/pages/player/page.py:234
+msgid "Could Not Play This Stream"
+msgstr ""
+
+#: src/pages/player/page.py:237 src/pages/player/page.py:510
+msgid "Buffering"
+msgstr ""
+
+#: src/pages/player/page.py:249
+msgid "Connecting to Peers"
+msgstr ""
+
+#: src/pages/player/page.py:349
+msgid "No addon has a stream for this episode"
+msgstr ""
+
+#: src/pages/player/page.py:458
+#, python-brace-format
+msgid "{peers} peers · {rate}"
+msgstr ""
+
+#: src/pages/player/page.py:548
+msgid "Playback Failed"
+msgstr ""
+
+#: src/pages/player/page.py:548
+msgid "The stream could not be decoded"
+msgstr ""
+
+#: src/pages/player/page.py:552
+msgid "None"
+msgstr ""
+
+#: src/pages/player/page.py:565
+msgid "Unknown"
+msgstr ""
+
+#: src/pages/player/page.py:569
+msgid "From Addons"
+msgstr ""
+
+#: src/pages/player/page.py:584
+#, python-brace-format
+msgid "Chapter {}"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:11 src/pages/setup/dialog.blp:229
+msgid "Playback"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:15
+msgid "Video"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:18 src/pages/setup/dialog.blp:240
+msgid "Hardware Decoding"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:19
+msgid "Use the GPU to decode video when possible"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:24
+msgid "Languages"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:25
+msgid "Comma separated language codes, for example eng,jpn"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:28
+msgid "Preferred Audio Languages"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:34
+msgid "Preferred Subtitle Languages"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:43 src/pages/setup/dialog.blp:189
+msgid "Torrents"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:47
+msgid "Engine"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:48
+msgid "Changes apply the next time the torrent engine starts"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:51 src/pages/setup/dialog.blp:200
+msgid "Connection Profile"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:52
+msgid "How aggressively to connect to peers"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:56 src/pages/setup/dialog.blp:203
+msgid "Gentle"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:57 src/pages/setup/dialog.blp:203
+msgid "Balanced"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:58 src/pages/setup/dialog.blp:203
+msgid "Fast"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:64 src/pages/setup/dialog.blp:219
+msgid "Share While Watching"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:65
+msgid "Upload to other peers during playback"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:70
+msgid "Storage"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:73
+msgid "Disk Cache Size"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:74
+msgid "In gigabytes"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:85
+msgid "Clear Torrent Cache"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:86
+msgid "Free the disk space used by watched torrents"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:105
+msgid "Each movie or series gets its own folder inside the download location"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:120 src/pages/setup/dialog.blp:281
+msgid "Ask Every Time"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:121 src/pages/setup/dialog.blp:282
+msgid "Choose where to save each download"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:128
+msgid "Account"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:166
+msgid "Switch Profile"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:175
+msgid "Add a Stremio Account"
+msgstr ""
+
+#: src/pages/preferences/dialog.blp:184
+msgid "Sign Out"
+msgstr ""
+
+#: src/pages/preferences/dialog.py:58
+msgid "Guest profile on this computer"
+msgstr ""
+
+#: src/pages/preferences/dialog.py:106
+msgid "Torrent cache cleared"
+msgstr ""
+
+#: src/pages/profiles/page.blp:13 src/pages/profiles/page.py:66
+msgid "Manage Profiles"
+msgstr ""
+
+#: src/pages/profiles/page.blp:38 src/pages/profiles/page.py:66
+msgid "Who's Watching?"
+msgstr ""
+
+#: src/pages/profiles/page.py:21
+msgid "Add Profile"
+msgstr ""
+
+#: src/pages/profiles/page.py:22
+msgid "Stremio account"
+msgstr ""
+
+#: src/pages/profiles/page.py:28
+msgid "This computer"
+msgstr ""
+
+#: src/pages/profiles/page.py:88
+#, python-brace-format
+msgid "Remove {}?"
+msgstr ""
+
+#: src/pages/profiles/page.py:89
+msgid ""
+"The profile is removed from this computer. Its library stays on the Stremio "
+"account."
+msgstr ""
+
+#: src/pages/search/page.blp:17
+msgid "Search, or paste a magnet or video link"
+msgstr ""
+
+#: src/pages/search/page.blp:33
+msgid "Find movies, series and more across your addons"
+msgstr ""
+
+#: src/pages/search/page.blp:42
+msgid "No Results"
+msgstr ""
+
+#: src/pages/search/page.blp:43
+msgid "Try a different search"
+msgstr ""
+
+#: src/pages/search/page.py:113
+msgid "Video Link"
+msgstr ""
+
+#: src/pages/search/page.py:117
+msgid "Addon Link"
+msgstr ""
+
+#: src/pages/search/page.py:118
+msgid "Open in Addons"
+msgstr ""
+
+#: src/pages/search/page.py:121
+msgid "Magnet Link"
+msgstr ""
+
+#: src/pages/search/page.py:122
+msgid "Fetching the torrent's files…"
+msgstr ""
+
+#: src/pages/search/page.py:140
+#, python-brace-format
+msgid "Could not read this torrent: {}"
+msgstr ""
+
+#: src/pages/search/page.py:149
+msgid "Choose a file to play"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:17 src/pages/setup/dialog.blp:163
+msgid "Welcome"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:29
+msgid "Watch movies and series from your Stremio addons"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:40
+msgid "Sync your library, progress and addons"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:51
+msgid "Continue Without an Account"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:52
+msgid "Keep everything on this computer"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:68 src/pages/setup/dialog.blp:105
+#: src/pages/setup/dialog.blp:145
+msgid "Sign In"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:110
+msgid "Use your Stremio account"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:121
+msgid "Email"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:127
+msgid "Password"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:151
+msgid "Create an Account"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:181
+msgid "Add a Stream Addon"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:182
+msgid ""
+"Chelsea finds titles with Cinemeta, but streams come from addons you "
+"install. Open Addons and pick one from the catalog, or paste an addon link "
+"into the filter."
+msgstr ""
+
+#: src/pages/setup/dialog.blp:190
+msgid ""
+"Torrent streams play through the built-in engine. These are fine for most "
+"connections."
+msgstr ""
+
+#: src/pages/setup/dialog.blp:208
+msgid "Disk Cache (GB)"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:230
+msgid ""
+"Language codes like eng or jpn pick tracks automatically when a video has "
+"several."
+msgstr ""
+
+#: src/pages/setup/dialog.blp:244
+msgid "Audio Languages"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:248
+msgid "Subtitle Languages"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:259
+msgid ""
+"Downloads are saved in a folder for each movie or series inside this "
+"location."
+msgstr ""
+
+#: src/pages/setup/dialog.blp:292
+msgid "You're All Set"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:293
+msgid ""
+"You can change any of this later in Preferences. Enjoy watching with Chelsea!"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:307
+msgid "Back"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:320 src/pages/setup/dialog.py:140
+msgid "Next"
+msgstr ""
+
+#: src/pages/setup/dialog.blp:340
+msgid "Signing In…"
+msgstr ""
+
+#: src/pages/setup/dialog.py:117
+#, python-brace-format
+msgid "Could not sign in: {}"
+msgstr ""
+
+#: src/pages/setup/dialog.py:140
+msgid "Get Started"
+msgstr ""
+
+#: src/profiles.py:27
+msgid "Profile"
+msgstr ""
+
+#: src/profiles.py:35
+msgid "Guest"
+msgstr ""

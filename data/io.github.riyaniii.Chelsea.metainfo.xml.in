@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.riyaniii.Chelsea</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+
+  <name>Chelsea</name>
+  <summary>Watch movies and series</summary>
+  <description>
+    <p>Chelsea is a Stremio client for GNOME. Browse catalogs from your addons, keep a synced library, and play streams and torrents in a built-in player.</p>
+    <ul>
+      <li>Catalogs, search and title pages from your Stremio addons</li>
+      <li>Your library and watch progress, synced with your Stremio account</li>
+      <li>Profiles for everyone who watches, with a guest profile that stays on this computer</li>
+      <li>A built-in mpv player with subtitles, chapters and seek-bar previews</li>
+      <li>Torrent streaming with no extra software</li>
+      <li>Downloads for offline viewing</li>
+    </ul>
+  </description>
+
+  <developer id="io.github.riyaniii">
+    <name translate="no">Riyan Parvez</name>
+  </developer>
+
+  <url type="homepage">https://github.com/riyaniii/Chelsea</url>
+  <url type="vcs-browser">https://github.com/riyaniii/Chelsea</url>
+  <url type="bugtracker">https://github.com/riyaniii/Chelsea/issues</url>
+  <url type="donation">https://buymeacoffee.com/riyanparvez</url>
+  <url type="contribute">https://github.com/riyaniii/Chelsea/blob/main/CONTRIBUTING.md</url>
+
+  <translation type="gettext">chelsea</translation>
+  <launchable type="desktop-id">io.github.riyaniii.Chelsea.desktop</launchable>
+  <content_rating type="oars-1.1" />
+
+  <branding>
+    <color type="primary" scheme_preference="light">#F6C6D6</color>
+    <color type="primary" scheme_preference="dark">#2C2C35</color>
+  </branding>
+
+  <requires>
+    <display_length compare="ge">500</display_length>
+  </requires>
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </supports>
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.1/assets/Screenshots/home.png</image>
+      <caption>Home</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.1/assets/Screenshots/details.png</image>
+      <caption>Title details and episodes</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.1/assets/Screenshots/player.png</image>
+      <caption>Player</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.1/assets/Screenshots/discover.png</image>
+      <caption>Discover</caption>
+    </screenshot>
+  </screenshots>
+
+  <releases>
+    <release version="0.1.1" date="2026-11-23">
+      <description translate="no">
+        <p>First release.</p>
+        <ul>
+          <li>Home, Search, Library, Discover, Downloads and Addons</li>
+          <li>Stremio accounts and a guest profile</li>
+          <li>Built-in mpv player with torrent streaming, chapters and seek bar previews</li>
+          <li>Opens stremio:// links for addons, titles and search</li>
+          <li>Downloads for offline viewing</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>

@@ -1,0 +1,82 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaStreamsView : Adw.Bin {
+  child: Adw.ToolbarView {
+    [top]
+    Gtk.ScrolledWindow switcher_scroller {
+      vscrollbar-policy: never;
+      hscrollbar-policy: automatic;
+      propagate-natural-height: true;
+      visible: false;
+
+      child: Adw.ToggleGroup source_switcher {
+        margin-start: 12;
+        margin-end: 12;
+        margin-top: 6;
+        margin-bottom: 6;
+        halign: center;
+        homogeneous: false;
+        notify::active-name => $on_source_changed();
+      };
+    }
+
+    content: Gtk.Stack stack {
+      transition-type: crossfade;
+
+      Gtk.StackPage {
+        name: "loading";
+
+        child: Adw.StatusPage {
+          title: _("Looking for Streams");
+          description: _("Asking your addons for sources");
+
+          child: Adw.Spinner {
+            width-request: 32;
+            height-request: 32;
+            halign: center;
+          };
+        };
+      }
+
+      Gtk.StackPage {
+        name: "empty";
+
+        child: Adw.StatusPage {
+          icon-name: "application-x-addon-symbolic";
+          title: _("No Streams Found");
+          description: _("Install an addon that provides streams for this title");
+
+          child: Gtk.Button {
+                        halign: center;
+            label: _("Browse Addons");
+            action-name: "app.open_addons_page";
+          };
+        };
+      }
+
+      Gtk.StackPage {
+        name: "streams";
+
+        child: Gtk.ScrolledWindow {
+          hscrollbar-policy: never;
+
+          child: Gtk.ListView list {
+            styles [
+              "navigation-sidebar"
+            ]
+
+            single-click-activate: true;
+            activate => $on_activate();
+
+            factory: Gtk.SignalListItemFactory {
+              setup => $on_setup();
+              bind => $on_bind();
+              unbind => $on_unbind();
+            };
+          };
+        };
+      }
+    };
+  };
+}

@@ -1,0 +1,66 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaLibraryPage : Adw.Bin {
+  child: Adw.ToolbarView {
+
+    [top]
+    Gtk.Box {
+      halign: start;
+      spacing: 6;
+      margin-top: 0;
+      margin-bottom: 6;
+      margin-start: 18;
+      margin-end: 18;
+
+      Gtk.DropDown type_dropdown {
+        tooltip-text: _("Type");
+        notify::selected => $on_filter_changed();
+        styles ["flat"]
+      }
+
+      Gtk.DropDown sort_dropdown {
+        tooltip-text: _("Sort");
+        notify::selected => $on_sort_changed();
+
+        model: Gtk.StringList {
+          strings [
+            _("Recently Watched"),
+            _("Recently Added"),
+            _("Title")
+          ]
+        };
+        styles ["flat"]
+      }
+    }
+
+    content: Gtk.Stack stack {
+      transition-type: crossfade;
+
+      Gtk.StackPage {
+        name: "empty";
+
+        child: Adw.StatusPage empty_page {
+          icon-name: "library-symbolic";
+          title: _("Your Library Is Empty");
+          description: _("Titles you add to your library show up here");
+
+          child: Gtk.Button sign_in_button {
+            styles [
+              "suggested-action"
+            ]
+
+            halign: center;
+            label: _("Sign In to Stremio");
+            action-name: "app.sign_in";
+          };
+        };
+      }
+
+      Gtk.StackPage {
+        name: "grid";
+        child: $ChelseaGrid grid {};
+      }
+    };
+  };
+}

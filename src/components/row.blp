@@ -1,0 +1,112 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaRow : Gtk.Box {
+  orientation: vertical;
+  spacing: 6;
+
+  Gtk.Box {
+    spacing: 6;
+
+    Gtk.Label {
+      styles [
+        "title-4"
+      ]
+
+      label: bind template.title;
+      hexpand: true;
+      xalign: 0.0;
+      ellipsize: end;
+      margin-start: 6;
+    }
+
+    Gtk.Button {
+      styles [
+        "flat"
+      ]
+
+      label: _("See All");
+      visible: bind template.show-all;
+      clicked => $on_see_all_clicked();
+    }
+  }
+
+  Gtk.Stack stack {
+    transition-type: crossfade;
+    vhomogeneous: false;
+
+    Gtk.StackPage {
+      name: "loading";
+
+      child: Adw.Spinner {
+        height-request: 325;
+        width-request: 32;
+        halign: center;
+      };
+    }
+
+    Gtk.StackPage {
+      name: "empty";
+
+      child: Gtk.Label empty_label {
+        styles [
+          "dimmed"
+        ]
+
+        height-request: 80;
+        label: _("Nothing to show");
+      };
+    }
+
+    Gtk.StackPage {
+      name: "items";
+
+      child: Gtk.Overlay {
+        styles [
+          "rounded"
+        ]
+
+        [overlay]
+        Adw.Bin {
+          styles [
+            "row-overlay-left"
+          ]
+
+          halign: start;
+          vexpand: true;
+          width-request: 10;
+        }
+
+        [overlay]
+        Adw.Bin {
+          styles [
+            "row-overlay-right"
+          ]
+
+          halign: end;
+          vexpand: true;
+          width-request: 10;
+        }
+
+        child: Gtk.ScrolledWindow scroller {
+          hscrollbar-policy: external;
+          vscrollbar-policy: never;
+
+          child: Gtk.ListView list {
+            styles [
+              "card-row",
+              "inherit-color"
+            ]
+
+            orientation: horizontal;
+            single-click-activate: true;
+            hscroll-policy: natural;
+            vscroll-policy: minimum;
+            height-request: 325;
+            activate => $on_activate();
+          };
+        };
+      };
+    }
+  }
+}

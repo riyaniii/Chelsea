@@ -1,0 +1,83 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaDetailsPage : Adw.NavigationPage {
+  title: bind template.meta as <$ChelseaMeta>.name;
+
+  child: Adw.OverlaySplitView split_view {
+    collapsed: true;
+    show-sidebar: false;
+    enable-show-gesture: true;
+    enable-hide-gesture: true;
+    sidebar-position: end;
+    min-sidebar-width: 360;
+    max-sidebar-width: 420;
+    sidebar-width-fraction: 0.34;
+    sidebar: $ChelseaEpisodesPanel panel {};
+
+    content: Adw.ToolbarView {
+      extend-content-to-top-edge: true;
+      top-bar-style: flat;
+
+      [top]
+      Adw.HeaderBar {
+        styles [
+          "hero-header"
+        ]
+
+        show-title: true;
+
+        [end]
+        Gtk.ToggleButton panel_button {
+          icon-name: "view-list-symbolic";
+          tooltip-text: bind template.panel-title;
+          active: bind split_view.show-sidebar bidirectional;
+        }
+      }
+
+      content: Gtk.Stack stack {
+        transition-type: crossfade;
+
+        Gtk.StackPage {
+          name: "loading";
+
+          child: Adw.Spinner {
+            width-request: 48;
+            height-request: 48;
+            halign: center;
+            valign: center;
+          };
+        }
+
+        Gtk.StackPage {
+          name: "error";
+
+          child: Adw.StatusPage error_page {
+            icon-name: "network-error-symbolic";
+            title: _("Could Not Load This Title");
+
+            child: Gtk.Button {
+                            halign: center;
+              label: _("Try Again");
+              clicked => $on_retry_clicked();
+            };
+          };
+        }
+
+        Gtk.StackPage {
+          name: "content";
+
+          child: $ChelseaHero hero {
+            model: bind template.meta;
+            play-label: bind template.play-label;
+            min-height: 0;
+            description-lines: 5;
+            show-people: true;
+            vexpand: true;
+            play => $on_play();
+          };
+        }
+      };
+    };
+  };
+}

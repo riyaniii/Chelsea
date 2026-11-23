@@ -1,0 +1,28 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaWindow : Adw.ApplicationWindow {
+  title: _("Chelsea");
+  default-width: 1050;
+  default-height: 750;
+
+
+  content: Adw.ToastOverlay window_toasts {
+    child: Gtk.Stack window_stack {
+      transition-type: crossfade;
+
+      Gtk.StackPage {
+        name: "profiles";
+        child: $ChelseaProfilesPage profiles_page {
+          profile-chosen => $on_profile_chosen();
+          add-profile => $on_add_profile();
+        };
+      }
+
+      Gtk.StackPage {
+        name: "main";
+        child: Adw.Bin main_bin {};
+      }
+    };
+  };
+}

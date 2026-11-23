@@ -1,0 +1,191 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaPreferencesDialog : Adw.PreferencesDialog {
+  content-width: 680;
+  content-height: 520;
+  search-enabled: true;
+
+  Adw.PreferencesPage {
+    name: "playback";
+    title: _("Playback");
+    icon-name: "media-playback-start-symbolic";
+
+    Adw.PreferencesGroup {
+      title: _("Video");
+
+      Adw.SwitchRow hwdec_row {
+        title: _("Hardware Decoding");
+        subtitle: _("Use the GPU to decode video when possible");
+      }
+    }
+
+    Adw.PreferencesGroup {
+      title: _("Languages");
+      description: _("Comma separated language codes, for example eng,jpn");
+
+      Adw.EntryRow audio_language_row {
+        title: _("Preferred Audio Languages");
+        show-apply-button: true;
+        apply => $on_audio_language_applied();
+      }
+
+      Adw.EntryRow subtitle_language_row {
+        title: _("Preferred Subtitle Languages");
+        show-apply-button: true;
+        apply => $on_subtitle_language_applied();
+      }
+    }
+  }
+
+  Adw.PreferencesPage {
+    name: "torrents";
+    title: _("Torrents");
+    icon-name: "chain-link-symbolic";
+
+    Adw.PreferencesGroup {
+      title: _("Engine");
+      description: _("Changes apply the next time the torrent engine starts");
+
+      Adw.ComboRow profile_row {
+        title: _("Connection Profile");
+        subtitle: _("How aggressively to connect to peers");
+
+        model: Gtk.StringList {
+          strings [
+            _("Gentle"),
+            _("Balanced"),
+            _("Fast")
+          ]
+        };
+      }
+
+      Adw.SwitchRow upload_row {
+        title: _("Share While Watching");
+        subtitle: _("Upload to other peers during playback");
+      }
+    }
+
+    Adw.PreferencesGroup {
+      title: _("Storage");
+
+      Adw.SpinRow cache_row {
+        title: _("Disk Cache Size");
+        subtitle: _("In gigabytes");
+
+        adjustment: Gtk.Adjustment {
+          lower: 1;
+          upper: 200;
+          step-increment: 1;
+          page-increment: 10;
+        };
+      }
+
+      Adw.ActionRow {
+        title: _("Clear Torrent Cache");
+        subtitle: _("Free the disk space used by watched torrents");
+        activatable: true;
+        activated => $on_clear_cache_activated();
+
+        [suffix]
+        Gtk.Image {
+          icon-name: "user-trash-symbolic";
+        }
+      }
+    }
+  }
+
+  Adw.PreferencesPage {
+    name: "downloads";
+    title: _("Downloads");
+    icon-name: "folder-download-symbolic";
+
+    Adw.PreferencesGroup {
+      title: _("Downloads");
+      description: _("Each movie or series gets its own folder inside the download location");
+
+      Adw.ActionRow download_folder_row {
+        styles ["property"]
+        title: _("Download Location");
+        activatable: true;
+        activated => $on_download_folder_activated();
+
+        [suffix]
+        Gtk.Image {
+          icon-name: "folder-open-symbolic";
+        }
+      }
+
+      Adw.SwitchRow ask_location_row {
+        title: _("Ask Every Time");
+        subtitle: _("Choose where to save each download");
+      }
+    }
+  }
+
+  Adw.PreferencesPage {
+    name: "account";
+    title: _("Account");
+    icon-name: "avatar-default-symbolic";
+
+    Adw.PreferencesGroup {
+      Gtk.Box {
+        orientation: vertical;
+        spacing: 12;
+        margin-top: 12;
+        margin-bottom: 12;
+
+        Adw.Avatar account_avatar {
+          size: 128;
+          show-initials: true;
+          halign: center;
+        }
+
+        Gtk.Label account_name {
+          styles [
+            "title-1"
+          ]
+
+          ellipsize: end;
+        }
+
+        Gtk.Label account_detail {
+          styles [
+            "dimmed"
+          ]
+
+          ellipsize: end;
+        }
+
+        Gtk.Box {
+          spacing: 12;
+          halign: center;
+          margin-top: 12;
+
+          Gtk.Button {
+                        label: _("Switch Profile");
+            clicked => $on_switch_activated();
+          }
+
+          Gtk.Button sign_in_button {
+            styles [
+              "suggested-action"
+            ]
+
+            label: _("Add a Stremio Account");
+            clicked => $on_sign_in_activated();
+          }
+
+          Gtk.Button sign_out_button {
+            styles [
+              "destructive-action"
+            ]
+
+            label: _("Sign Out");
+            clicked => $on_sign_out_activated();
+          }
+        }
+      }
+    }
+  }
+}

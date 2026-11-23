@@ -1,0 +1,62 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaEpisodesPanel : Adw.Bin {
+  child: Adw.NavigationView nav {
+    Adw.NavigationPage episodes_page {
+      title: _("Episodes");
+      tag: "episodes";
+
+      child: Adw.ToolbarView {
+        [top]
+        Adw.HeaderBar {
+          show-back-button: false;
+
+          [start]
+          Gtk.Button {
+            icon-name: "go-previous-symbolic";
+            tooltip-text: _("Close");
+            action-name: "panel.close";
+          }
+
+          [end]
+          Gtk.DropDown season_dropdown {
+            tooltip-text: _("Season");
+            notify::selected => $on_season_changed();
+          }
+        }
+
+        content: Gtk.Stack episodes_stack {
+          transition-type: crossfade;
+
+          Gtk.StackPage {
+            name: "empty";
+
+            child: Adw.StatusPage {
+              icon-name: "video-x-generic-symbolic";
+              title: _("No Episodes");
+              description: _("This title has no episodes yet");
+            };
+          }
+
+          Gtk.StackPage {
+            name: "list";
+
+            child: Gtk.ScrolledWindow {
+              hscrollbar-policy: never;
+
+              child: Gtk.ListBox episode_list {
+                styles [
+                  "navigation-sidebar"
+                ]
+
+                selection-mode: none;
+                row-activated => $on_episode_activated();
+              };
+            };
+          }
+        };
+      };
+    }
+  };
+}

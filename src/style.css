@@ -1,0 +1,396 @@
+.inherit-color {
+  background: none;
+  color: inherit;
+}
+
+.little-bold {
+  font-weight: 550;
+}
+
+.r5 {
+  border-radius: 5px;
+}
+
+.rounded {
+  border-radius: 9px;
+}
+
+.poster {
+  background: alpha(currentColor, 0.08);
+}
+
+.card-grid {
+  background: none;
+  color: inherit;
+  padding: 0 12px 12px 12px;
+}
+
+.card-grid > child,
+.card-row > row {
+  margin: 0;
+  padding: 0;
+}
+
+.card-row {
+  background: none;
+  color: inherit;
+}
+
+.card-row > row {
+  border-radius: 9px;
+}
+
+.genres > button,
+.overview-genres > button {
+  border-radius: 25px;
+}
+
+.overview-genres > button {
+  font-size: 14px;
+  padding: 0 8px;
+}
+
+.row-overlay-right {
+  margin-right: -1px;
+  background: linear-gradient(to left, var(--window-bg-color) 0%, transparent 100%);
+}
+
+.row-overlay-left {
+  margin-left: -1px;
+  background: linear-gradient(to right, var(--window-bg-color) 0%, transparent 100%);
+}
+
+.hero-people {
+  opacity: 0.85;
+}
+
+progressbar.white-progress,
+progressbar.white-progress > trough {
+  min-width: 0;
+}
+
+progressbar.white-progress > trough > progress {
+  background-color: white;
+}
+
+.carousel-dots {
+  color: white;
+}
+
+.reader-osd {
+  color: white;
+  text-shadow:
+    0px 0px 3px rgba(0, 0, 0, 0.6),
+    0px 0px 7px rgba(0, 0, 0, 0.5),
+    0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+
+.addon-tile {
+  padding: 12px;
+}
+
+.addon-logo {
+  border-radius: 9px;
+  background: alpha(currentColor, 0.06);
+}
+
+
+
+.donate {
+  color: var(--accent-fg-color);
+  background-image: linear-gradient(
+    135deg,
+    var(--accent-bg-color) 0%,
+    shade(var(--accent-bg-color), 1.25) 30%,
+    var(--accent-bg-color) 45%,
+    shade(var(--accent-bg-color), 0.65) 100%
+  );
+}
+
+.donate headerbar {
+  background: none;
+  box-shadow: none;
+  color: inherit;
+}
+
+.donate-button {
+  background: white;
+  color: shade(var(--accent-bg-color), 0.65);
+  font-weight: bold;
+}
+
+.donate-button:hover {
+  background: alpha(white, 0.9);
+}
+
+.avatar-button {
+  padding: 2px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.profile-tile {
+  padding: 12px;
+  border-radius: 18px;
+}
+
+.profile-remove {
+  background-color: var(--destructive-bg-color);
+  color: var(--destructive-fg-color);
+  border-radius: 999px;
+  padding: 8px;
+}
+
+.hero-shade {
+  background-image: linear-gradient(to top,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.55) 30%,
+    rgba(0, 0, 0, 0.18) 60%,
+    transparent 80%);
+}
+
+.hero-content {
+  color: white;
+  text-shadow: 0px 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content button:not(.suggested-action) {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+.hero-content button:not(.suggested-action):hover {
+  background-color: rgba(255, 255, 255, 0.26);
+}
+
+.hero-header {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.32) 0%,
+    rgba(0, 0, 0, 0.14) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  box-shadow: none;
+  color: white;
+  text-shadow: 0px 1px 6px rgba(0, 0, 0, 0.6);
+  -gtk-icon-shadow: 0px 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+.player {
+  --cine-grey: #e5e5e5;
+  --window-bg-color: rgb(5, 5, 6);
+  --window-fg-color: var(--cine-grey);
+  --headerbar-bg-color: var(--window-bg-color);
+  --card-bg-color: rgba(60, 60, 62, 0.66);
+  --popover-bg-color: rgba(25, 25, 27, 0.975);
+  --popover-fg-color: var(--cine-grey);
+  background-color: var(--window-bg-color);
+  color: var(--window-fg-color);
+}
+
+.player .osd {
+  background: none;
+  box-shadow: none;
+  text-shadow: 0px 1px 6px rgba(0, 0, 0, 0.6);
+  -gtk-icon-shadow: 0px 1px 6px rgba(0, 0, 0, 0.6);
+  color: white;
+}
+
+.player .header-bar {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.14) 0%,
+    rgba(0, 0, 0, 0.08) 40%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.player .controls {
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.1) 40%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.player .header-and-controls {
+  background-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.32) 0%,
+    rgba(0, 0, 0, 0.16) 5%,
+    rgba(0, 0, 0, 0) 17%,
+    rgba(0, 0, 0, 0) 65%,
+    rgba(0, 0, 0, 0.24) 90%,
+    rgba(0, 0, 0, 0.43) 100%
+  );
+}
+
+window:backdrop .player .controls button,
+window:backdrop .player .controls .heading,
+window:backdrop .player scale {
+  transition: opacity 300ms;
+  opacity: 0.66;
+}
+
+.player button:hover:not(.close):not(.maximize):not(.minimize):not(.pill):not(.suggested-action):not(:checked),
+.player menubutton button:checked:not(.close):not(.maximize):not(.minimize):not(.pill):not(.suggested-action):not(.toggle-mute) {
+  background: rgb(from currentColor r g b / calc(alpha * 0.2));
+}
+
+.player button:active:not(.close):not(.maximize):not(.minimize):not(.pill):not(.suggested-action):not(:checked) {
+  background-color: rgb(from currentColor r g b / calc(alpha * 0.3));
+}
+
+.player .osd.controls button:disabled {
+  -gtk-icon-shadow: 0px 1px 5px black;
+  opacity: 1;
+}
+
+.player .osd.controls .time-separator {
+  background-color: #ddd;
+  opacity: 0.4;
+  border-radius: 2px;
+}
+
+.player popover * {
+  text-shadow: none;
+  -gtk-icon-shadow: none;
+}
+
+.player popover > contents,
+.player popover > arrow {
+  border: 1px solid color-mix(in srgb, var(--popover-bg-color) 96%, currentColor);
+  background: var(--popover-bg-color);
+  color: var(--popover-fg-color);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.33);
+}
+
+.player .cine-spinner {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.player .status-text {
+  color: white;
+  text-shadow: 0px 1px 6px rgba(0, 0, 0, 0.6);
+  -gtk-icon-shadow: 0px 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+.player .options-spin {
+  background: none;
+  outline: none;
+  padding: 0;
+  font-weight: bold;
+  box-shadow: none;
+}
+
+#options popover button,
+#options popover .options-spin {
+  min-height: 22px;
+}
+
+#options dropdown button * {
+  background: none;
+}
+
+.player .volume-scale {
+  margin-left: -4px;
+  margin-right: 2px;
+}
+
+.player scale highlight,
+.player scale > trough > slider {
+  background-color: white;
+}
+
+.player popover scale highlight,
+.player popover scale > trough > slider {
+  background-color: hsl(from var(--popover-fg-color) h s calc(l + 15%));
+}
+
+.player scale > trough > slider {
+  border-radius: 100%;
+  transform: scale(0.9);
+}
+
+.player scale trough {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.player popover trough {
+  background-color: rgb(from var(--popover-fg-color) r g b / calc(alpha * 0.3));
+}
+
+.player scale marks mark indicator {
+  border-radius: 99px;
+  border: 1px solid white;
+  min-height: 2px;
+  min-width: 0;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.33);
+}
+
+.player scale marks.top mark {
+  margin-top: 3px;
+  margin-bottom: -1px;
+}
+
+.player .first-label-bold popover modelbutton:first-child {
+  font-weight: bold;
+}
+
+.player .time-elapsed {
+  margin: 0 -7px;
+  min-height: 26px;
+}
+
+.player .icon-indicator {
+  -gtk-icon-shadow: 0px 1px 9px rgba(0, 0, 0, 0.66);
+  color: white;
+}
+
+.player time-tooltip frame {
+  margin: 12px 6px;
+  border: none;
+  box-shadow:
+    0px 0px 5px 1px rgba(20, 20, 20, 0.5),
+    0px 0px 0px 1px rgba(144, 144, 144, 0.44);
+}
+
+.player time-tooltip label {
+  border: 1px solid color-mix(in srgb, var(--popover-bg-color) 96%, currentColor);
+  background: var(--popover-bg-color);
+  color: var(--popover-fg-color);
+  padding: 7px 10px;
+  margin: 6px;
+  margin-bottom: 4px;
+  line-height: 18px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.33);
+  text-shadow: none;
+  border-radius: 12px;
+}
+
+@media (prefers-contrast: more) {
+  .player time-tooltip label {
+    border: 1px solid var(--border-color);
+  }
+
+  .player popover > contents,
+  .player popover > arrow {
+    border: 1px solid var(--border-color);
+  }
+
+  .player .header-and-controls {
+    background-image: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.3) 5%,
+      rgba(0, 0, 0, 0) 17%,
+      rgba(0, 0, 0, 0) 65%,
+      rgba(0, 0, 0, 0.46) 90%,
+      rgba(0, 0, 0, 0.8) 100%
+    );
+  }
+}

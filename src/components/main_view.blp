@@ -1,0 +1,133 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaMainView : Adw.BreakpointBin {
+  width-request: 500;
+  height-request: 294;
+
+  Adw.Breakpoint {
+    condition ("max-width: 640sp")
+
+    setters {
+      switcher.visible: false;
+      switcher_bar.reveal: true;
+    }
+  }
+
+  child: Adw.ToastOverlay toast_overlay {
+    child: Adw.NavigationView main_nav_view {
+      Adw.NavigationPage {
+        title: _("Chelsea");
+        tag: "main";
+
+        child: Adw.ToolbarView {
+          [top]
+          Adw.HeaderBar {
+            title-widget: Adw.ViewSwitcher switcher {
+              stack: main_stack;
+              policy: wide;
+            };
+
+            [end]
+            Gtk.MenuButton {
+              styles [
+                "flat",
+                "circular",
+                "avatar-button"
+              ]
+
+              primary: true;
+              tooltip-text: _("Main Menu");
+              menu-model: primary_menu;
+
+              child: Adw.Avatar menu_avatar {
+                size: 28;
+                show-initials: true;
+              };
+            }
+          }
+
+          content: Adw.ViewStack main_stack {
+            Adw.ViewStackPage {
+              name: "home";
+              title: _("Home");
+              icon-name: "go-home-symbolic";
+              child: $ChelseaHomePage home_page {};
+            }
+
+            Adw.ViewStackPage {
+              name: "search";
+              title: _("Search");
+              icon-name: "system-search-symbolic";
+              child: $ChelseaSearchPage search_page {};
+            }
+
+            Adw.ViewStackPage {
+              name: "library";
+              title: _("Library");
+              icon-name: "library-symbolic";
+              child: $ChelseaLibraryPage library_page {};
+            }
+
+            Adw.ViewStackPage {
+              name: "discover";
+              title: _("Discover");
+              icon-name: "compass-symbolic";
+              child: $ChelseaDiscoverPage discover_page {};
+            }
+
+            Adw.ViewStackPage {
+              name: "downloads";
+              title: _("Downloads");
+              icon-name: "folder-download-symbolic";
+              child: $ChelseaDownloadsPage downloads_page {};
+            }
+
+            Adw.ViewStackPage {
+              name: "addons";
+              title: _("Addons");
+              icon-name: "application-x-addon-symbolic";
+              child: $ChelseaAddonsPage addons_page {};
+            }
+          };
+
+          [bottom]
+          Adw.ViewSwitcherBar switcher_bar {
+            stack: main_stack;
+          }
+        };
+      }
+    };
+  };
+}
+
+menu primary_menu {
+  section {
+    item {
+      label: _("_Switch Profile");
+      action: "app.switch_profile";
+    }
+  }
+
+  section {
+    item {
+      label: _("_Preferences");
+      action: "app.preferences";
+    }
+
+    item {
+      label: _("_Keyboard Shortcuts");
+      action: "app.shortcuts";
+    }
+
+    item {
+      label: _("_Support Chelsea");
+      action: "app.donate";
+    }
+
+    item {
+      label: _("_About Chelsea");
+      action: "app.about";
+    }
+  }
+}

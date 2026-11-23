@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="chelsea">
+  <schema id="io.github.riyaniii.Chelsea" path="/io/github/riyaniii/Chelsea/">
+    <key name="profiles" type="aa{ss}">
+      <default>[]</default>
+      <summary>Profiles</summary>
+      <description>Saved profiles, each with an id, a name, a kind ("stremio" or "guest") and the account email. Session keys are kept in the system keyring.</description>
+    </key>
+    <key name="last-profile" type="s">
+      <default>''</default>
+      <summary>Last profile</summary>
+      <description>The id of the profile that was used last.</description>
+    </key>
+    <key name="donate-reminder-at" type="x">
+      <default>0</default>
+      <summary>Donation reminder last shown</summary>
+      <description>When the donation dialog was last shown, in seconds since 1970. It is shown again after 30 days.</description>
+    </key>
+    <key name="welcome-shown" type="b">
+      <default>false</default>
+      <summary>Setup finished</summary>
+      <description>Whether the first-run setup and tour have been completed.</description>
+    </key>
+    <key name="download-folder" type="s">
+      <default>''</default>
+      <summary>Download folder</summary>
+      <description>Where downloads are saved, each in a folder named after its movie or series. Empty means the Downloads folder.</description>
+    </key>
+    <key name="ask-download-location" type="b">
+      <default>false</default>
+      <summary>Ask where to save downloads</summary>
+      <description>Ask for a location every time something is downloaded.</description>
+    </key>
+    <key name="hardware-decoding" type="b">
+      <default>true</default>
+      <summary>Hardware decoding</summary>
+      <description>Let mpv decode video on the GPU when it is safe to do so.</description>
+    </key>
+    <key name="audio-language" type="s">
+      <default>''</default>
+      <summary>Preferred audio languages</summary>
+      <description>A comma separated list of language codes passed to mpv as alang, for example "eng,jpn".</description>
+    </key>
+    <key name="subtitle-language" type="s">
+      <default>''</default>
+      <summary>Preferred subtitle languages</summary>
+      <description>A comma separated list of language codes passed to mpv as slang, for example "eng".</description>
+    </key>
+    <key name="volume" type="d">
+      <range min="0" max="130"/>
+      <default>100</default>
+      <summary>Player volume</summary>
+      <description>The last volume used in the player.</description>
+    </key>
+    <key name="show-remaining" type="b">
+      <default>false</default>
+      <summary>Show remaining time</summary>
+      <description>Show the time left instead of the time played in the player.</description>
+    </key>
+    <key name="torrent-profile" type="s">
+      <choices>
+        <choice value="soft"/>
+        <choice value="balanced"/>
+        <choice value="fast"/>
+      </choices>
+      <default>'balanced'</default>
+      <summary>Torrent connection profile</summary>
+      <description>How aggressively the Nuvio engine connects to peers.</description>
+    </key>
+    <key name="torrent-cache-size" type="i">
+      <range min="1" max="200"/>
+      <default>4</default>
+      <summary>Torrent disk cache size</summary>
+      <description>How many gigabytes of torrent data the engine keeps on disk.</description>
+    </key>
+    <key name="torrent-upload" type="b">
+      <default>true</default>
+      <summary>Share while watching</summary>
+      <description>Upload torrent data to other peers during playback.</description>
+    </key>
+  </schema>
+</schemalist>

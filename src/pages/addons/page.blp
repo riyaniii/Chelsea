@@ -1,0 +1,56 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaAddonsPage : Adw.Bin {
+  child: Adw.ToolbarView {
+    [top]
+    Adw.Clamp {
+      maximum-size: 600;
+      tightening-threshold: 500;
+      margin-top: 6;
+      margin-bottom: 12;
+      margin-start: 18;
+
+      child: Gtk.SearchEntry search_entry {
+        hexpand: true;
+        placeholder-text: _("Filter addons or paste an addon link");
+        search-changed => $on_search_changed();
+        activate => $on_search_activate();
+      };
+    }
+
+    content: Gtk.Stack stack {
+      transition-type: crossfade;
+
+      Gtk.StackPage {
+        name: "list";
+
+        child: Gtk.ScrolledWindow {
+          hscrollbar-policy: never;
+
+          child: Gtk.ListView list {
+            styles [
+              "navigation-sidebar"
+            ]
+
+            margin-start: 12;
+            margin-end: 12;
+            single-click-activate: true;
+            activate => $on_activate();
+
+            factory: Gtk.SignalListItemFactory {
+              setup => $on_setup();
+              bind => $on_bind();
+              unbind => $on_unbind();
+            };
+
+            header-factory: Gtk.SignalListItemFactory {
+              setup => $on_header_setup();
+              bind => $on_header_bind();
+            };
+          };
+        };
+      }
+    };
+  };
+}

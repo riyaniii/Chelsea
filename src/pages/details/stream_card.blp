@@ -1,0 +1,74 @@
+using Gtk 4.0;
+
+template $ChelseaStreamCard : Gtk.Box {
+  orientation: horizontal;
+  spacing: 12;
+  margin-top: 6;
+  margin-bottom: 6;
+  margin-start: 6;
+  margin-end: 6;
+
+  Gtk.Box {
+    orientation: vertical;
+    spacing: 2;
+    valign: center;
+    hexpand: true;
+
+    Gtk.Label {
+      label: bind $name_text(template.stream as <$ChelseaStream>.name, template.stream as <$ChelseaStream>.source_name) as <string>;
+      xalign: 0.0;
+      ellipsize: end;
+    }
+
+    Gtk.Label {
+      styles [
+        "dimmed"
+      ]
+
+      label: bind template.stream as <$ChelseaStream>.title;
+      xalign: 0.0;
+      wrap: true;
+      wrap-mode: word_char;
+      lines: 4;
+      ellipsize: end;
+    }
+  }
+
+  Gtk.MenuButton {
+    styles [
+      "flat",
+      "circular"
+    ]
+
+    valign: center;
+    icon-name: "view-more-symbolic";
+    tooltip-text: _("More");
+    menu-model: stream_menu;
+  }
+}
+
+menu stream_menu {
+  section {
+    item {
+      label: _("Play From Start");
+      action: "stream.play-from-start";
+    }
+
+    item {
+      label: _("Download");
+      action: "stream.download";
+    }
+  }
+
+  section {
+    item {
+      label: _("Copy Link");
+      action: "stream.copy-link";
+    }
+
+    item {
+      label: _("Open in External Player");
+      action: "stream.open-external";
+    }
+  }
+}

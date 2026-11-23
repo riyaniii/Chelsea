@@ -1,0 +1,52 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaProfilesPage : Gtk.WindowHandle {
+  child: Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {
+      show-title: false;
+
+      [end]
+      Gtk.ToggleButton manage_button {
+        icon-name: "document-edit-symbolic";
+        tooltip-text: _("Manage Profiles");
+        toggled => $on_manage_toggled();
+      }
+    }
+
+    content: Gtk.ScrolledWindow {
+      hscrollbar-policy: never;
+
+      child: Adw.Clamp {
+        maximum-size: 900;
+        valign: center;
+
+        child: Gtk.Box {
+          orientation: vertical;
+          spacing: 36;
+          margin-start: 12;
+          margin-end: 12;
+          margin-top: 12;
+          margin-bottom: 12;
+
+          Gtk.Label title_label {
+            styles [
+              "title-1"
+            ]
+
+            label: _("Who's Watching?");
+          }
+
+          Adw.WrapBox profiles_box {
+            halign: center;
+            child-spacing: 24;
+            line-spacing: 24;
+            justify: none;
+            align: 0.5;
+          }
+        };
+      };
+    };
+  };
+}

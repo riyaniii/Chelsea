@@ -1,0 +1,82 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaDownloadsPage : Adw.Bin {
+  child: Gtk.Stack stack {
+    transition-type: crossfade;
+
+    Gtk.StackPage {
+      name: "empty";
+
+      child: Adw.StatusPage {
+        icon-name: "folder-download-symbolic";
+        title: _("No Downloads");
+        description: _("Use the menu next to a stream to save it for offline viewing");
+      };
+    }
+
+    Gtk.StackPage {
+      name: "list";
+
+      child: Gtk.ScrolledWindow {
+        hscrollbar-policy: never;
+        child: Gtk.Box {
+          orientation: vertical;
+          margin-start: 18;
+          margin-end: 18;
+          margin-top: 6;
+          margin-bottom: 18;
+          spacing: 6;
+
+          Gtk.Box {
+            spacing: 6;
+
+            Gtk.Label {
+              styles [
+                "title-4"
+              ]
+
+              label: _("Downloads");
+              hexpand: true;
+              xalign: 0;
+            }
+
+            Gtk.Button {
+              styles [
+                "flat",
+                "circular"
+              ]
+
+              icon-name: "folder-open-symbolic";
+              tooltip-text: _("Open Downloads Folder");
+              clicked => $on_open_folder_clicked();
+            }
+
+            Gtk.Button {
+              styles [
+                "flat",
+                "circular"
+              ]
+
+              icon-name: "edit-clear-all-symbolic";
+              tooltip-text: _("Clear Finished");
+              clicked => $on_clear_clicked();
+            }
+          }
+
+          Gtk.ListView list {
+            styles [
+              "navigation-sidebar"
+            ]
+
+            factory: Gtk.SignalListItemFactory {
+              setup => $on_setup();
+              bind => $on_bind();
+              unbind => $on_unbind();
+            };
+          }
+        };
+      };
+    }
+  };
+}

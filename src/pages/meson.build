@@ -1,0 +1,13 @@
+install_data('__init__.py', install_dir: moduledir / 'pages')
+
+subdir('addons')
+subdir('details')
+subdir('discover')
+subdir('downloads')
+subdir('home')
+subdir('library')
+subdir('player')
+subdir('preferences')
+subdir('profiles')
+subdir('search')
+subdir('setup')

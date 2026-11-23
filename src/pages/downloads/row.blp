@@ -1,0 +1,63 @@
+using Gtk 4.0;
+
+template $ChelseaDownloadRow : Gtk.Box {
+  orientation: horizontal;
+  spacing: 12;
+  margin-start: 6;
+  margin-end: 6;
+  margin-top: 12;
+  margin-bottom: 12;
+
+  Gtk.Box {
+    orientation: vertical;
+    spacing: 4;
+    hexpand: true;
+    valign: center;
+
+    Gtk.Label {
+      label: bind $name_text(template.model as <$ChelseaDownload>.path) as <string>;
+      xalign: 0.0;
+      ellipsize: middle;
+    }
+
+    Gtk.Label {
+      styles [
+        "dimmed",
+        "caption",
+        "numeric"
+      ]
+
+      label: bind $size_text(template.model as <$ChelseaDownload>.state, template.model as <$ChelseaDownload>.downloaded, template.model as <$ChelseaDownload>.size) as <string>;
+      xalign: 0.0;
+    }
+
+    Gtk.ProgressBar {
+      fraction: bind template.model as <$ChelseaDownload>.progress;
+      visible: bind $unfinished(template.model as <$ChelseaDownload>.state) as <bool>;
+    }
+  }
+
+  Gtk.Button {
+    styles [
+      "flat",
+      "circular"
+    ]
+
+    valign: center;
+    icon-name: bind $toggle_icon(template.model as <$ChelseaDownload>.state) as <string>;
+    tooltip-text: bind $toggle_tooltip(template.model as <$ChelseaDownload>.state) as <string>;
+    clicked => $on_toggle_clicked();
+  }
+
+  Gtk.Button {
+    styles [
+      "flat",
+      "circular"
+    ]
+
+    valign: center;
+    icon-name: "user-trash-symbolic";
+    tooltip-text: _("Remove");
+    clicked => $on_remove_clicked();
+  }
+}

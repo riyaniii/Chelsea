@@ -1,0 +1,184 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaHero : Gtk.Overlay {
+  overflow: hidden;
+  hexpand: true;
+
+  Gtk.GestureClick {
+    released => $on_hero_clicked();
+  }
+
+  child: Adw.Bin {
+    styles [
+      "poster"
+    ]
+
+    hexpand: true;
+    height-request: bind template.min-height;
+  };
+
+  [overlay]
+  Gtk.Stack {
+    transition-type: crossfade;
+    transition-duration: 300;
+    visible-child-name: bind $image_page(template.model as <$ChelseaMeta>.background_paintable) as <string>;
+
+    Gtk.StackPage {
+      name: "empty";
+      child: Adw.Bin {};
+    }
+
+    Gtk.StackPage {
+      name: "image";
+
+      child: Gtk.Picture {
+        paintable: bind template.model as <$ChelseaMeta>.background_paintable;
+        content-fit: cover;
+        can-shrink: true;
+      };
+    }
+  }
+
+  [overlay]
+  Adw.Bin {
+    styles [
+      "hero-shade"
+    ]
+
+    can-target: false;
+  }
+
+  [overlay]
+  Gtk.Box {
+    styles [
+      "hero-content"
+    ]
+
+    orientation: vertical;
+    spacing: 12;
+    valign: end;
+    hexpand: true;
+    margin-start: 30;
+    margin-end: 30;
+    margin-bottom: 30;
+
+    Gtk.Stack {
+      transition-type: crossfade;
+      transition-duration: 300;
+      hhomogeneous: false;
+      vhomogeneous: false;
+      interpolate-size: true;
+      halign: start;
+      visible-child-name: bind $title_page(template.model as <$ChelseaMeta>.logo_paintable) as <string>;
+
+      Gtk.StackPage {
+        name: "title";
+
+        child: Gtk.Label {
+          styles [
+            "title-1"
+          ]
+
+          label: bind template.model as <$ChelseaMeta>.name;
+          xalign: 0.0;
+          wrap: true;
+          lines: 2;
+          ellipsize: end;
+        };
+      }
+
+      Gtk.StackPage {
+        name: "logo";
+
+        child: $ChelseaHeroLogo {
+          paintable: bind template.model as <$ChelseaMeta>.logo_paintable;
+          halign: start;
+        };
+      }
+    }
+
+    Gtk.Box {
+      spacing: 12;
+
+      Gtk.Button {
+        styles [
+          "suggested-action"
+        ]
+
+        clicked => $on_play_clicked();
+
+        child: Adw.ButtonContent {
+          icon-name: "media-playback-start-symbolic";
+          label: bind template.play-label;
+        };
+      }
+
+      Gtk.Button {
+                visible: bind template.compact inverted;
+        clicked => $on_library_clicked();
+
+        child: Adw.ButtonContent {
+          icon-name: bind $library_icon(template.model as <$ChelseaMeta>.in_library) as <string>;
+          label: bind $library_label(template.model as <$ChelseaMeta>.in_library) as <string>;
+        };
+      }
+
+      Gtk.Button {
+        styles [
+          "circular",
+          "hero-icon-button"
+        ]
+
+        valign: center;
+        visible: bind template.compact;
+        icon-name: bind $library_icon(template.model as <$ChelseaMeta>.in_library) as <string>;
+        tooltip-text: bind $library_label(template.model as <$ChelseaMeta>.in_library) as <string>;
+        clicked => $on_library_clicked();
+      }
+
+      Gtk.Button {
+                visible: bind $trailer_visible(template.compact, template.model as <$ChelseaMeta>.trailer) as <bool>;
+        clicked => $on_trailer_clicked();
+
+        child: Adw.ButtonContent {
+          icon-name: "camera-video-symbolic";
+          label: _("Trailer");
+        };
+      }
+    }
+
+    Gtk.Label {
+      styles [
+        "little-bold"
+      ]
+
+      label: bind $info_text(template.model as <$ChelseaMeta>.release_info, template.model as <$ChelseaMeta>.runtime, template.model as <$ChelseaMeta>.imdb_rating, template.model as <$ChelseaMeta>.genres) as <string>;
+      xalign: 0.0;
+      wrap: true;
+    }
+
+    Gtk.Label {
+      label: bind template.model as <$ChelseaMeta>.description;
+      visible: bind $has_text(template.model as <$ChelseaMeta>.description) as <bool>;
+      xalign: 0.0;
+      wrap: true;
+      wrap-mode: word_char;
+      lines: bind template.description-lines;
+      ellipsize: end;
+      max-width-chars: 90;
+    }
+
+    Gtk.Label {
+      styles [
+        "hero-people"
+      ]
+
+      label: bind $people_text(template.show-people, template.model as <$ChelseaMeta>.cast, template.model as <$ChelseaMeta>.directors) as <string>;
+      visible: bind $people_visible(template.show-people, template.model as <$ChelseaMeta>.cast, template.model as <$ChelseaMeta>.directors) as <bool>;
+      use-markup: true;
+      xalign: 0.0;
+      wrap: true;
+    }
+  }
+}

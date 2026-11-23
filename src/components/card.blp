@@ -1,0 +1,72 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaCard : Gtk.Box {
+  orientation: vertical;
+  spacing: 6;
+  margin-start: 6;
+  margin-end: 6;
+  margin-top: 6;
+  margin-bottom: 6;
+  tooltip-text: bind template.model as <$ChelseaMeta>.name;
+
+  Gtk.AspectFrame {
+    ratio: bind $poster_ratio(template.model as <$ChelseaMeta>.poster_shape) as <float>;
+    obey-child: false;
+
+    child: Gtk.Overlay {
+      child: Gtk.Stack {
+        styles [
+          "rounded",
+          "poster"
+        ]
+
+        overflow: hidden;
+        transition-type: crossfade;
+        visible-child-name: bind $image_page(template.model as <$ChelseaMeta>.paintable) as <string>;
+
+        Gtk.StackPage {
+          name: "empty";
+          child: Adw.Bin {};
+        }
+
+        Gtk.StackPage {
+          name: "image";
+
+          child: Gtk.Picture {
+            paintable: bind template.model as <$ChelseaMeta>.paintable;
+            content-fit: cover;
+            width-request: 185;
+          };
+        }
+      };
+
+      [overlay]
+      Gtk.ProgressBar {
+        styles [
+          "white-progress"
+        ]
+
+        valign: end;
+        margin-start: 8;
+        margin-end: 8;
+        margin-bottom: 8;
+        fraction: bind template.model as <$ChelseaMeta>.progress;
+        visible: bind $has_progress(template.model as <$ChelseaMeta>.progress) as <bool>;
+      }
+    };
+  }
+
+  Gtk.Inscription {
+    styles [
+      "heading"
+    ]
+
+    text: bind template.model as <$ChelseaMeta>.name;
+    visible: bind template.show-title;
+    hexpand: true;
+    valign: center;
+    xalign: 0.0;
+    text-overflow: ellipsize_end;
+  }
+}

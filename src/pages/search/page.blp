@@ -1,0 +1,105 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaSearchPage : Adw.Bin {
+  child: Adw.ToolbarView {
+    [top]
+    Adw.Clamp {
+      maximum-size: 500;
+      tightening-threshold: 400;
+      margin-top: 3;
+      margin-bottom: 12;
+      margin-start: 18;
+      margin-end: 18;
+
+      child: Gtk.SearchEntry entry {
+        hexpand: true;
+        placeholder-text: _("Search, or paste a magnet or video link");
+        search-delay: 450;
+        search-changed => $on_search_changed();
+        activate => $on_search_activate();
+      };
+    }
+
+    content: Gtk.Stack stack {
+      transition-type: crossfade;
+
+      Gtk.StackPage {
+        name: "start";
+
+        child: Adw.StatusPage {
+          icon-name: "system-search-symbolic";
+          title: _("Search");
+          description: _("Find movies, series and more across your addons");
+        };
+      }
+
+      Gtk.StackPage {
+        name: "none";
+
+        child: Adw.StatusPage {
+          icon-name: "edit-find-symbolic";
+          title: _("No Results");
+          description: _("Try a different search");
+        };
+      }
+
+      Gtk.StackPage {
+        name: "link";
+
+        child: Adw.StatusPage link_page {
+          child: Adw.Clamp {
+            maximum-size: 600;
+
+            child: Gtk.Box {
+              orientation: vertical;
+              spacing: 18;
+
+              Gtk.Button link_button {
+                styles [
+                  "suggested-action"
+                ]
+
+                halign: center;
+                clicked => $on_link_clicked();
+              }
+
+              Adw.Spinner link_spinner {
+                width-request: 32;
+                height-request: 32;
+                halign: center;
+                visible: false;
+              }
+
+              Gtk.ListBox files_list {
+                styles [
+                  "navigation-sidebar"
+                ]
+
+                visible: false;
+                selection-mode: none;
+                row-activated => $on_file_activated();
+              }
+            };
+          };
+        };
+      }
+
+      Gtk.StackPage {
+        name: "results";
+
+        child: Gtk.ScrolledWindow {
+          hscrollbar-policy: never;
+
+          child: Gtk.Box rows_box {
+            orientation: vertical;
+            spacing: 18;
+            margin-bottom: 18;
+            margin-start: 12;
+            margin-end: 12;
+          };
+        };
+      }
+    };
+  };
+}

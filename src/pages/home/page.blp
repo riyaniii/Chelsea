@@ -1,0 +1,86 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaHomePage : Adw.Bin {
+  child: Gtk.Stack stack {
+    transition-type: crossfade;
+
+    Gtk.StackPage {
+      name: "loading";
+
+      child: Adw.Spinner {
+        width-request: 48;
+        height-request: 48;
+        halign: center;
+        valign: center;
+      };
+    }
+
+    Gtk.StackPage {
+      name: "empty";
+
+      child: Adw.StatusPage {
+        icon-name: "application-x-addon-symbolic";
+        title: _("Welcome to Chelsea");
+        description: _("Start by installing an addon that provides catalogs");
+
+        child: Gtk.Button {
+          styles [
+            "suggested-action"
+          ]
+
+          halign: center;
+          label: _("Browse Addons");
+          action-name: "app.open_addons_page";
+        };
+      };
+    }
+
+    Gtk.StackPage {
+      name: "home";
+
+      child: Gtk.ScrolledWindow {
+        hscrollbar-policy: never;
+
+        child: Gtk.Box rows_box {
+          orientation: vertical;
+          valign: start;
+          spacing: 18;
+          margin-top: 10;
+          margin-bottom: 10;
+          margin-start: 12;
+          margin-end: 12;
+
+          Gtk.Revealer carousel_revealer {
+            transition-type: crossfade;
+            margin-start: 6;
+            margin-end: 6;
+
+            child: Gtk.Overlay {
+              child: Adw.Carousel carousel {
+                styles [
+                  "rounded"
+                ]
+
+                overflow: hidden;
+                hexpand: true;
+                height-request: 440;
+              };
+
+              [overlay]
+              Adw.CarouselIndicatorDots {
+                styles [
+                  "carousel-dots"
+                ]
+
+                carousel: carousel;
+                valign: start;
+                margin-top: 6;
+              }
+            };
+          }
+        };
+      };
+    }
+  };
+}
