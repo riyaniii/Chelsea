@@ -20,6 +20,8 @@ from .constants import APPLICATION_ID, DONATE_URL, NAME, RESOURCE_PATH, WEBSITE
 from .integrations import Images, Nuvio, Stremio
 from . import profiles
 from .integrations import LoginFailed
+from .gpu import prefer_nvidia_gpu
+from .performance import setup_logging
 from .mpris import MPRIS
 from .passwords import Secrets
 
@@ -254,4 +256,6 @@ class ChelseaApplication(Adw.Application):
 
 
 def main(version: str) -> int:
+    setup_logging()
+    prefer_nvidia_gpu(Gio.Settings(schema_id=APPLICATION_ID))
     return ChelseaApplication(version).run(sys.argv)

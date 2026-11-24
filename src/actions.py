@@ -77,8 +77,9 @@ def open_link(app, uri: str):
     if page == "details":
         return show_meta(app, target["type"], target["id"])
     if page == "addon":
-        switch_page(app, "addons")
-        get_window(app).addons_page.show_link(target["url"])
+        from .components.link_dialog import LinkDialog
+        from .components.links import Link
+        show_dialog(app, LinkDialog(Link("addon", target["url"])))
     elif page == "search":
         switch_page(app, "search")
         get_window(app).search_page.search_for(target["query"])

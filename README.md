@@ -7,10 +7,8 @@ Chelsea lets you discover and watch movies and series from your Stremio addons, 
 
 - A beautiful libadwaita UI
 - Catalogs, search and title pages from any Stremio addon
-- Your library and watch progress, synced with your Stremio account
-- Netflix style profiles, plus a guest profile that stays on your computer
 - A built-in mpv player with subtitles, chapters and seek bar previews
-- Torrent streaming built in, no extra software needed
+- Torrent streaming built in
 - Downloads for offline viewing
 
 Chelsea connects with [Stremio](https://www.stremio.com) and its addons, streams torrents with [Nuvio Engine](https://github.com/NuvioMedia/nuvio-engine), and plays everything with [mpv](https://mpv.io). The player is inspired by [Cine](https://github.com/diegopvlk/Cine).
@@ -64,6 +62,11 @@ You can install Chelsea as a flatpak on Linux
       <img src="assets/Screenshots/discover.png" width="100%">
       <br>
       <strong>Discover</strong>
+    </td>
+    <td align="center">
+      <img src="assets/Screenshots/downloads.png" width="100%">
+      <br>
+      <strong>Downloads</strong>
     </td>
   </tr>
 </table>

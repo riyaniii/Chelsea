@@ -29,8 +29,10 @@ chelsea_sources = [
   'constants.py',
   'downloads.py',
   'main.py',
+  'gpu.py',
   'mpris.py',
   'passwords.py',
+  'performance.py',
   'profiles.py',
 ]
 
@@ -45,6 +47,9 @@ blueprint_files = [
   'components/donate.blp',
   'components/grid.blp',
   'components/hero.blp',
+  'components/file_grid.blp',
+  'components/link_dialog.blp',
+  'components/magnet_dialog.blp',
   'components/main_view.blp',
   'components/row.blp',
   'components/shortcuts.blp',
@@ -58,7 +63,6 @@ blueprint_files = [
   'pages/details/streams_view.blp',
   'pages/discover/page.blp',
   'pages/downloads/page.blp',
-  'pages/downloads/row.blp',
   'pages/home/page.blp',
   'pages/library/page.blp',
   'pages/player/options.blp',

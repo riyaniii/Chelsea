@@ -36,7 +36,7 @@ template $ChelseaCard : Gtk.Box {
           child: Gtk.Picture {
             paintable: bind template.model as <$ChelseaMeta>.paintable;
             content-fit: cover;
-            width-request: 185;
+            width-request: bind template.poster-width;
           };
         }
       };

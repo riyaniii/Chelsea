@@ -5,33 +5,33 @@ template $ChelseaLibraryPage : Adw.Bin {
   child: Adw.ToolbarView {
 
     [top]
-    Gtk.Box {
-      halign: start;
-      spacing: 6;
-      margin-top: 0;
-      margin-bottom: 6;
-      margin-start: 18;
-      margin-end: 18;
+    Adw.HeaderBar {
+      [start]
+      $ChelseaSidebarButton {}
 
-      Gtk.DropDown type_dropdown {
-        tooltip-text: _("Type");
-        notify::selected => $on_filter_changed();
-        styles ["flat"]
-      }
+      title-widget: Gtk.Box {
+        spacing: 6;
 
-      Gtk.DropDown sort_dropdown {
-        tooltip-text: _("Sort");
-        notify::selected => $on_sort_changed();
+        Gtk.DropDown type_dropdown {
+          tooltip-text: _("Type");
+          notify::selected => $on_filter_changed();
+          styles ["flat"]
+        }
 
-        model: Gtk.StringList {
-          strings [
-            _("Recently Watched"),
-            _("Recently Added"),
-            _("Title")
-          ]
-        };
-        styles ["flat"]
-      }
+        Gtk.DropDown sort_dropdown {
+          tooltip-text: _("Sort");
+          notify::selected => $on_sort_changed();
+
+          model: Gtk.StringList {
+            strings [
+              _("Recently Watched"),
+              _("Recently Added"),
+              _("Title")
+            ]
+          };
+          styles ["flat"]
+        }
+      };
     }
 
     content: Gtk.Stack stack {

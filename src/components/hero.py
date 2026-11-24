@@ -68,12 +68,14 @@ class Hero(Gtk.Overlay):
         self.load_images()
 
     def load_images(self):
-        self.cancel()
-        if self.model is None:
-            return
-        for url_property, target in (("background", "background_paintable"), ("logo", "logo_paintable")):
-            task = self.images.startThumbnail(self.model, url_property, target, priority=True)
-            self.tasks.append((self.model, target, task))
+        previous = self.tasks
+        self.tasks = []
+        if self.model is not None:
+            for url_property, target in (("background", "background_paintable"), ("logo", "logo_paintable")):
+                task = self.images.startThumbnail(self.model, url_property, target, priority=True)
+                self.tasks.append((self.model, target, task))
+        for model, target, task in previous:
+            self.images.stopThumbnail(model, task, target)
 
     def cancel(self):
         for model, target, task in self.tasks:

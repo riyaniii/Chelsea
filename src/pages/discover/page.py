@@ -4,6 +4,7 @@ from gettext import gettext as _
 from gi.repository import Adw, Gio, Gtk
 
 from ...components import Grid
+from ...components.dropdowns import make_shrinkable
 from ...components.formats import type_title
 from ...integrations import models
 
@@ -27,6 +28,7 @@ class DiscoverPage(Adw.Bin):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        make_shrinkable(self.type_dropdown, self.catalog_dropdown, self.genre_dropdown)
         self.integration = Gio.Application.get_default().integration
         self.store = Gio.ListStore(item_type=models.Meta)
         self.grid.bind_model(self.store)

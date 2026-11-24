@@ -4,6 +4,7 @@ from gettext import gettext as _
 from gi.repository import Adw, Gio, GLib, GObject, Gtk
 
 from ...components import Hero
+from ...performance import timed
 from ...components.formats import episode_code
 from ...integrations import models
 from .panel import EpisodesPanel
@@ -56,7 +57,8 @@ class DetailsPage(Adw.NavigationPage):
 
     async def fetch(self):
         try:
-            await self.integration.getMeta(self.meta.type, self.meta.id)
+            with timed(f"loading details {self.meta.id}"):
+                await self.integration.getMeta(self.meta.type, self.meta.id)
         except Exception as error:
             print(f"details: {error}")
             self.error_page.set_description(str(error))

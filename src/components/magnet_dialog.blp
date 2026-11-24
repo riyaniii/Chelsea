@@ -1,0 +1,54 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaMagnetDialog : Adw.Dialog {
+  content-width: 720;
+  content-height: 560;
+  closed => $on_closed();
+
+  child: Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {
+      title-widget: $ChelseaPathBar path_bar {
+        folder-selected => $on_folder_selected();
+      };
+
+      [start]
+      $ChelseaHistoryControls history {
+        location-chosen => $on_location_chosen();
+      }
+    }
+
+    content: Gtk.Stack stack {
+      transition-type: crossfade;
+
+      Gtk.StackPage {
+        name: "loading";
+
+        child: Adw.Spinner {
+          width-request: 48;
+          height-request: 48;
+          halign: center;
+          valign: center;
+        };
+      }
+
+      Gtk.StackPage {
+        name: "files";
+
+        child: $ChelseaFileGrid file_grid {
+          activated => $on_file_activated();
+        };
+      }
+
+      Gtk.StackPage {
+        name: "error";
+
+        child: Adw.StatusPage error_page {
+          icon-name: "dialog-error-symbolic";
+          title: _("Could Not Read This Torrent");
+        };
+      }
+    };
+  };
+}

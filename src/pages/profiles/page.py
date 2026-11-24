@@ -11,32 +11,22 @@ TILE_AVATAR_SIZE = 112
 class ProfileTile(Gtk.Button):
     __gtype_name__ = "ChelseaProfileTile"
 
-    def __init__(self, profile: dict | None, manage: bool = False):
+    def __init__(self, profile: dict, manage: bool = False):
         super().__init__(css_classes=["flat", "profile-tile"])
         self.profile = profile
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
         overlay = Gtk.Overlay()
-        if profile is None:
-            avatar = Adw.Avatar(size=TILE_AVATAR_SIZE, icon_name="list-add-symbolic", show_initials=False)
-            name = _("Add Profile")
-            detail = _("Stremio account")
-        else:
-            is_guest = profile["kind"] == profiles.GUEST
-            avatar = Adw.Avatar(size=TILE_AVATAR_SIZE, text=profile["name"], show_initials=not is_guest,
-                                icon_name="avatar-default-symbolic")
-            name = profile["name"]
-            detail = _("This computer") if is_guest else profile["email"]
-            load_avatar(avatar, profile.get("avatar", ""))
+        is_guest = profile["kind"] == profiles.GUEST
+        avatar = Adw.Avatar(size=TILE_AVATAR_SIZE, text=profile["name"], show_initials=not is_guest,
+                            icon_name="avatar-default-symbolic")
+        load_avatar(avatar, profile.get("avatar", ""))
         overlay.set_child(avatar)
-        if manage and profile is not None and profile["kind"] != profiles.GUEST:
+        if manage and not is_guest:
             badge = Gtk.Image(icon_name="user-trash-symbolic", css_classes=["profile-remove"],
                               halign=Gtk.Align.END, valign=Gtk.Align.START)
             overlay.add_overlay(badge)
         box.append(overlay)
-        labels = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
-        labels.append(Gtk.Label(label=name, css_classes=["heading"], ellipsize=3, max_width_chars=16))
-        labels.append(Gtk.Label(label=detail, css_classes=["dimmed", "caption"], ellipsize=3, max_width_chars=20))
-        box.append(labels)
+        box.append(Gtk.Label(label=profile["name"], ellipsize=3, max_width_chars=16))
         self.set_child(box)
 
 
@@ -72,10 +62,6 @@ class ProfilesPage(Gtk.WindowHandle):
             tile = ProfileTile(profile, manage)
             tile.connect("clicked", self.on_tile_clicked)
             self.profiles_box.append(tile)
-        if not manage:
-            add = ProfileTile(None)
-            add.connect("clicked", lambda button: self.emit("add-profile"))
-            self.profiles_box.append(add)
 
     def on_tile_clicked(self, tile):
         profile = tile.profile
@@ -97,6 +83,10 @@ class ProfilesPage(Gtk.WindowHandle):
     def on_remove_response(self, dialog, response, profile):
         if response == "remove":
             profiles.remove_profile(self.settings, self.app.secrets, profile["id"])
+
+    @Gtk.Template.Callback()
+    def on_add_clicked(self, button):
+        self.emit("add-profile")
 
     @Gtk.Template.Callback()
     def on_manage_toggled(self, button):

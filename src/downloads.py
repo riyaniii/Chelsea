@@ -75,7 +75,7 @@ class Downloads(GObject.Object):
             item.update_data(**{key: value for key, value in entry.items() if key in SAVED_FIELDS})
             if item.state == "downloading":
                 item.state = "paused"
-            if item.state == "done" and not Path(item.path).exists():
+            if item.state == "done":
                 continue
             if item.size:
                 item.progress = item.downloaded / item.size
@@ -136,10 +136,6 @@ class Downloads(GObject.Object):
         self.update_active()
         self.save_history()
 
-    def clear_finished(self):
-        for item in [item for item in self.store if item.state == "done"]:
-            self.remove(item, delete_file=False)
-
     async def close(self):
         for task in self.tasks.values():
             task.cancel()
@@ -172,6 +168,9 @@ class Downloads(GObject.Object):
             url = await self.source_url(item)
             await self.fetch(item, url)
             item.update_data(state="done", progress=1.0)
+            found, position = self.store.find(item)
+            if found:
+                self.store.remove(position)
         except asyncio.CancelledError:
             raise
         except Exception as error:

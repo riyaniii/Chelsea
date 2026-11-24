@@ -4,18 +4,19 @@ using Adw 1;
 template $ChelseaAddonsPage : Adw.Bin {
   child: Adw.ToolbarView {
     [top]
-    Adw.Clamp {
-      maximum-size: 600;
-      tightening-threshold: 500;
-      margin-top: 6;
-      margin-bottom: 12;
-      margin-start: 18;
+    Adw.HeaderBar {
+      [start]
+      $ChelseaSidebarButton {}
 
-      child: Gtk.SearchEntry search_entry {
-        hexpand: true;
-        placeholder-text: _("Filter addons or paste an addon link");
-        search-changed => $on_search_changed();
-        activate => $on_search_activate();
+      title-widget: Adw.Clamp {
+        maximum-size: 500;
+        tightening-threshold: 400;
+
+        child: Gtk.SearchEntry search_entry {
+          hexpand: true;
+          placeholder-text: _("Filter addons or paste an addon link");
+          search-changed => $on_search_changed();
+        };
       };
     }
 
@@ -25,7 +26,7 @@ template $ChelseaAddonsPage : Adw.Bin {
       Gtk.StackPage {
         name: "list";
 
-        child: Gtk.ScrolledWindow {
+        child: Gtk.ScrolledWindow scroller {
           hscrollbar-policy: never;
 
           child: Gtk.ListView list {

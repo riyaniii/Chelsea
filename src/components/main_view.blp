@@ -2,15 +2,14 @@ using Gtk 4.0;
 using Adw 1;
 
 template $ChelseaMainView : Adw.BreakpointBin {
-  width-request: 500;
+  width-request: 360;
   height-request: 294;
 
   Adw.Breakpoint {
-    condition ("max-width: 640sp")
+    condition ("max-width: 700sp")
 
     setters {
-      switcher.visible: false;
-      switcher_bar.reveal: true;
+      split_view.collapsed: true;
     }
   }
 
@@ -20,32 +19,30 @@ template $ChelseaMainView : Adw.BreakpointBin {
         title: _("Chelsea");
         tag: "main";
 
-        child: Adw.ToolbarView {
-          [top]
-          Adw.HeaderBar {
-            title-widget: Adw.ViewSwitcher switcher {
-              stack: main_stack;
-              policy: wide;
-            };
+        child: Adw.OverlaySplitView split_view {
+          min-sidebar-width: 240;
+          max-sidebar-width: 260;
 
-            [end]
-            Gtk.MenuButton {
-              styles [
-                "flat",
-                "circular",
-                "avatar-button"
-              ]
-
-              primary: true;
-              tooltip-text: _("Main Menu");
-              menu-model: primary_menu;
-
-              child: Adw.Avatar menu_avatar {
-                size: 28;
-                show-initials: true;
+          sidebar: Adw.ToolbarView {
+            [top]
+            Adw.HeaderBar {
+              title-widget: Adw.WindowTitle {
+                title: _("Chelsea");
               };
+
+              [end]
+              Gtk.MenuButton {
+                primary: true;
+                icon-name: "open-menu-symbolic";
+                tooltip-text: _("Main Menu");
+                menu-model: primary_menu;
+              }
             }
-          }
+
+            content: Adw.ViewSwitcherSidebar {
+              stack: main_stack;
+            };
+          };
 
           content: Adw.ViewStack main_stack {
             Adw.ViewStackPage {
@@ -90,11 +87,6 @@ template $ChelseaMainView : Adw.BreakpointBin {
               child: $ChelseaAddonsPage addons_page {};
             }
           };
-
-          [bottom]
-          Adw.ViewSwitcherBar switcher_bar {
-            stack: main_stack;
-          }
         };
       }
     };

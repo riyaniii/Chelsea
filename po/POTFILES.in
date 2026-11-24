@@ -10,13 +10,18 @@ src/components/download_location.py
 src/components/formats.py
 src/components/grid.py
 src/components/hero.blp
+src/components/link_dialog.blp
 src/components/hero.py
+src/components/link_dialog.py
+src/components/magnet_dialog.blp
+src/components/magnet_dialog.py
 src/components/links.py
 src/components/main_view.blp
 src/components/main_view.py
 src/components/row.blp
 src/components/row.py
 src/components/shortcuts.blp
+src/components/sidebar_button.py
 src/components/window.blp
 src/components/window.py
 src/downloads.py
@@ -44,8 +49,6 @@ src/pages/discover/page.blp
 src/pages/discover/page.py
 src/pages/downloads/page.blp
 src/pages/downloads/page.py
-src/pages/downloads/row.blp
-src/pages/downloads/row.py
 src/pages/home/page.blp
 src/pages/home/page.py
 src/pages/library/page.blp

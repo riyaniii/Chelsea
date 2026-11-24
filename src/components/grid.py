@@ -2,6 +2,8 @@ from gi.repository import Adw, GObject, Gtk
 
 from .cards import open_meta, card_factory, same
 
+GRID_POSTER_WIDTH = 150
+
 
 @Gtk.Template(resource_path='/io/github/riyaniii/Chelsea/components/grid.ui')
 class Grid(Adw.BreakpointBin):
@@ -22,7 +24,7 @@ class Grid(Adw.BreakpointBin):
     def bind_model(self, model, get_meta=same):
         self.get_meta = get_meta
         self.model = model
-        self.grid.set_factory(card_factory(get_meta))
+        self.grid.set_factory(card_factory(get_meta, poster_width=GRID_POSTER_WIDTH))
         self.grid.set_model(Gtk.NoSelection(model=model))
 
     def scroll_to_top(self):

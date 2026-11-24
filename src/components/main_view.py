@@ -1,7 +1,6 @@
 from gi.repository import Adw, Gio, GObject, Gtk
 
 from ..pages.addons import AddonsPage
-from .avatars import load_avatar
 from ..pages.discover import DiscoverPage
 from ..pages.downloads import DownloadsPage
 from ..pages.home import HomePage
@@ -14,6 +13,7 @@ class ChelseaMainView(Adw.BreakpointBin):
     __gtype_name__ = 'ChelseaMainView'
 
     main_stack = Gtk.Template.Child()
+    split_view = Gtk.Template.Child()
     main_nav_view = Gtk.Template.Child()
     toast_overlay = Gtk.Template.Child()
     home_page = Gtk.Template.Child()
@@ -22,7 +22,6 @@ class ChelseaMainView(Adw.BreakpointBin):
     search_page = Gtk.Template.Child()
     addons_page = Gtk.Template.Child()
     downloads_page = Gtk.Template.Child()
-    menu_avatar = Gtk.Template.Child()
 
     active_downloads = GObject.Property(type=int, default=0)
 
@@ -30,7 +29,8 @@ class ChelseaMainView(Adw.BreakpointBin):
         super().__init__(**kwargs)
         app = Gio.Application.get_default()
         app.downloads.bind_property("active", self, "active-downloads", GObject.BindingFlags.SYNC_CREATE)
-        app.integration.bind_property("profile-name", self.menu_avatar, "text", GObject.BindingFlags.SYNC_CREATE)
-        app.integration.connect("notify::avatar-url",
-                                lambda integration, pspec: load_avatar(self.menu_avatar, integration.avatar_url))
+        self.main_stack.connect("notify::visible-child", self.on_page_changed)
 
+    def on_page_changed(self, stack, pspec):
+        if self.split_view.get_collapsed():
+            self.split_view.set_show_sidebar(False)

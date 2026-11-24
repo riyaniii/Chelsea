@@ -13,12 +13,12 @@ def open_meta(meta):
             "show_meta", GLib.Variant("(ss)", (meta.type, meta.id)))
 
 
-def card_factory(get_meta=same, landscape: bool = False) -> Gtk.SignalListItemFactory:
+def card_factory(get_meta=same, landscape: bool = False, poster_width: int = 185) -> Gtk.SignalListItemFactory:
     images = Gio.Application.get_default().images
     factory = Gtk.SignalListItemFactory()
 
     def on_setup(factory, list_item):
-        list_item.set_child(Card())
+        list_item.set_child(Card(poster_width=poster_width))
 
     def on_bind(factory, list_item):
         card = list_item.get_child()

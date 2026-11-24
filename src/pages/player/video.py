@@ -31,6 +31,34 @@ def proc_address_loader(context):
     raise RuntimeError("No OpenGL loader found")
 
 
+def display_params(widget) -> dict:
+    display = widget.get_display()
+    gtype = display.__gtype__.name
+    functions = {
+        "GdkWaylandDisplay": ("gdk_wayland_display_get_wl_display", "wl_display"),
+        "GdkX11Display": ("gdk_x11_display_get_xdisplay", "x11_display"),
+    }
+    if gtype not in functions:
+        return {}
+    function_name, param = functions[gtype]
+    try:
+        ctypes.pythonapi.PyCapsule_GetPointer.restype = ctypes.c_void_p
+        ctypes.pythonapi.PyCapsule_GetPointer.argtypes = [ctypes.py_object, ctypes.c_char_p]
+        pointer = ctypes.pythonapi.PyCapsule_GetPointer(display.__gpointer__, None)
+        function = getattr(ctypes.CDLL("libgtk-4.so.1"), function_name)
+        function.restype = ctypes.c_void_p
+        function.argtypes = [ctypes.c_void_p]
+        native = function(pointer)
+    except (OSError, AttributeError, ValueError) as error:
+        print(f"player: could not get the native display: {error}")
+        return {}
+    return {param: native} if native else {}
+
+
+def hwdec_option(enabled: bool) -> str:
+    return "auto" if enabled else "no"
+
+
 PLAYER_OPTIONS = {
     "vo": "libmpv",
     "config": False,
@@ -165,7 +193,8 @@ class MpvVideo(Gtk.GLArea):
         self.gl_get_integerv = load_gl_function(
             "glGetIntegerv", None, [ctypes.c_uint, ctypes.POINTER(ctypes.c_int)])
         self.render_context = mpv.MpvRenderContext(
-            self.player, "opengl", opengl_init_params={"get_proc_address": self.proc_address})
+            self.player, "opengl", opengl_init_params={"get_proc_address": self.proc_address},
+            **display_params(self))
         self.render_context.update_cb = self.on_update
 
     def do_unrealize(self):

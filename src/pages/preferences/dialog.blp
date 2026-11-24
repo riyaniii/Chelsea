@@ -2,8 +2,8 @@ using Gtk 4.0;
 using Adw 1;
 
 template $ChelseaPreferencesDialog : Adw.PreferencesDialog {
-  content-width: 680;
-  content-height: 520;
+  content-width: 720;
+  content-height: 480;
   search-enabled: true;
 
   Adw.PreferencesPage {
@@ -17,6 +17,11 @@ template $ChelseaPreferencesDialog : Adw.PreferencesDialog {
       Adw.SwitchRow hwdec_row {
         title: _("Hardware Decoding");
         subtitle: _("Use the GPU to decode video when possible");
+      }
+
+      Adw.SwitchRow discrete_gpu_row {
+        title: _("Use Discrete GPU");
+        subtitle: _("Play video on the NVIDIA graphics card, which uses more battery. Applies after restarting Chelsea");
       }
     }
 
@@ -129,62 +134,47 @@ template $ChelseaPreferencesDialog : Adw.PreferencesDialog {
     icon-name: "avatar-default-symbolic";
 
     Adw.PreferencesGroup {
-      Gtk.Box {
-        orientation: vertical;
-        spacing: 12;
-        margin-top: 12;
-        margin-bottom: 12;
+      Adw.Avatar account_avatar {
+        size: 128;
+        show-initials: true;
+        halign: center;
+      }
+    }
 
-        Adw.Avatar account_avatar {
-          size: 128;
-          show-initials: true;
-          halign: center;
-        }
+    Adw.PreferencesGroup {
+      Adw.EntryRow name_row {
+        title: _("Name");
+        show-apply-button: true;
+        apply => $on_name_applied();
+      }
 
-        Gtk.Label account_name {
-          styles [
-            "title-1"
-          ]
+      Adw.ActionRow email_row {
+        styles [
+          "property"
+        ]
 
-          ellipsize: end;
-        }
+        title: _("Email");
+        subtitle-selectable: true;
+      }
+    }
 
-        Gtk.Label account_detail {
-          styles [
-            "dimmed"
-          ]
+    Adw.PreferencesGroup {
+      Adw.ButtonRow sign_in_row {
+        styles [
+          "suggested-action"
+        ]
 
-          ellipsize: end;
-        }
+        title: _("Add a Stremio Account");
+        activated => $on_sign_in_activated();
+      }
 
-        Gtk.Box {
-          spacing: 12;
-          halign: center;
-          margin-top: 12;
+      Adw.ButtonRow sign_out_row {
+        styles [
+          "destructive-action"
+        ]
 
-          Gtk.Button {
-                        label: _("Switch Profile");
-            clicked => $on_switch_activated();
-          }
-
-          Gtk.Button sign_in_button {
-            styles [
-              "suggested-action"
-            ]
-
-            label: _("Add a Stremio Account");
-            clicked => $on_sign_in_activated();
-          }
-
-          Gtk.Button sign_out_button {
-            styles [
-              "destructive-action"
-            ]
-
-            label: _("Sign Out");
-            clicked => $on_sign_out_activated();
-          }
-        }
+        title: _("Sign Out");
+        activated => $on_sign_out_activated();
       }
     }
   }

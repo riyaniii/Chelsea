@@ -3,11 +3,12 @@ from gettext import gettext as _
 
 from gi.repository import Adw, Gio, GLib, Gtk
 
+from ...components import links
+from ...components.link_dialog import LinkDialog
 from ...integrations import models
 from ...integrations.endpoints import addonBase, isAddonLink
+from ...performance import timed
 from .addon_row import AddonRow
-
-LINK_DELAY_MS = 350
 
 
 @Gtk.Template(resource_path='/io/github/riyaniii/Chelsea/pages/addons/page.ui')
@@ -16,6 +17,7 @@ class AddonsPage(Adw.Bin):
 
     search_entry = Gtk.Template.Child()
     stack = Gtk.Template.Child()
+    scroller = Gtk.Template.Child()
     list = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
@@ -24,15 +26,11 @@ class AddonsPage(Adw.Bin):
         self.integration = app.integration
         self.images = app.images
         self.catalog = Gio.ListStore(item_type=models.Addon)
-        self.link_store = Gio.ListStore(item_type=models.Addon)
         self.catalog_task = None
-        self.link_task = None
-        self.link_source = 0
 
         self.filter = Gtk.CustomFilter.new(self.matches)
         self.available_filter = Gtk.CustomFilter.new(lambda addon: not addon.installed and self.matches(addon))
         self.sections = [
-            (_("From Link"), self.link_store),
             (_("Installed"), Gtk.FilterListModel(model=self.integration.addons, filter=self.filter)),
             (_("Discover Addons"), Gtk.FilterListModel(model=self.catalog, filter=self.available_filter)),
         ]
@@ -45,16 +43,21 @@ class AddonsPage(Adw.Bin):
         self.connect("map", self.on_map)
 
     def on_map(self, widget):
+        GLib.idle_add(self.scroll_to_top)
         if self.catalog_task is None and not self.catalog.get_n_items():
             self.catalog_task = asyncio.create_task(self.load_catalog())
 
-    def show_link(self, text: str):
-        self.search_entry.set_text(text)
-        self.search_entry.grab_focus()
+    def scroll_to_top(self):
+        self.scroller.get_vadjustment().set_value(0)
+        return GLib.SOURCE_REMOVE
+
+    def show_link(self, url: str):
+        LinkDialog(links.Link("addon", url)).present(self.get_root())
 
     async def load_catalog(self):
         try:
-            addons = await self.integration.getAddonCatalog()
+            with timed("loading the addon catalog"):
+                addons = await self.integration.getAddonCatalog()
         except Exception as error:
             self.toast(_("Could not load the addon catalog"))
             print(f"addon catalog: {error}")
@@ -62,10 +65,11 @@ class AddonsPage(Adw.Bin):
             return
         self.catalog.splice(0, 0, addons)
         self.sync_installed()
+        GLib.idle_add(self.scroll_to_top)
 
     def sync_installed(self):
         installed = {addon.transport_url for addon in self.integration.addons}
-        for addon in list(self.catalog) + list(self.link_store):
+        for addon in self.catalog:
             addon.installed = addon.transport_url in installed
         self.refilter()
 
@@ -75,42 +79,13 @@ class AddonsPage(Adw.Bin):
 
     def matches(self, addon):
         text = self.search_entry.get_text().strip()
-        if not text or isAddonLink(text):
+        if not text:
             return True
         query = text.lower()
         return query in addon.name.lower() or query in (addon.description or "").lower()
 
     def toast(self, message: str):
         Gio.Application.get_default().activate_action("show_toast", GLib.Variant("s", message))
-
-
-    def update_link(self):
-        if self.link_source:
-            GLib.source_remove(self.link_source)
-            self.link_source = 0
-        if self.link_task:
-            self.link_task.cancel()
-            self.link_task = None
-        text = self.search_entry.get_text().strip()
-        self.link_store.remove_all()
-        if isAddonLink(text):
-            self.link_source = GLib.timeout_add(LINK_DELAY_MS, self.on_link_timeout, text)
-
-    def on_link_timeout(self, text):
-        self.link_source = 0
-        self.link_task = asyncio.create_task(self.preview(text))
-        return GLib.SOURCE_REMOVE
-
-    async def preview(self, text: str):
-        try:
-            addon = await self.integration.previewAddon(text)
-        except asyncio.CancelledError:
-            raise
-        except Exception as error:
-            self.toast(_("This link is not a Stremio addon"))
-            print(f"addon link {text}: {error}")
-            return
-        self.link_store.splice(0, self.link_store.get_n_items(), [addon])
 
 
     async def install(self, transport_url: str, addon=None):
@@ -188,19 +163,9 @@ class AddonsPage(Adw.Bin):
 
     @Gtk.Template.Callback()
     def on_search_changed(self, entry):
+        text = entry.get_text().strip()
+        if isAddonLink(text):
+            entry.set_text("")
+            self.show_link(text)
+            return
         self.refilter()
-        self.update_link()
-
-    @Gtk.Template.Callback()
-    def on_search_activate(self, entry):
-        addon = self.link_store.get_item(0)
-        if addon is None or addon.installed or addon.busy:
-            return
-        if addon.configuration_required:
-            self.configure(addon)
-            return
-        asyncio.create_task(self.install_from_link(addon))
-
-    async def install_from_link(self, addon):
-        if await self.install(addon.transport_url, addon):
-            self.search_entry.set_text("")

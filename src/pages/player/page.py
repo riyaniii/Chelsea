@@ -8,7 +8,7 @@ from ...integrations import EngineError, models
 from .bindings import MOUSE_BUTTONS, build_bindings, key_combo, nonrepeatable_keys
 from .options import OptionsButton
 from .thumbnail import ThumbPreview
-from .video import MpvVideo
+from .video import MpvVideo, hwdec_option
 
 HIDE_UI_S = 2
 SAVE_INTERVAL_S = 10
@@ -132,7 +132,7 @@ class PlayerPage(Adw.NavigationPage):
         self.wheel_y = 0.0
         self.pressed_keys = set()
 
-        hwdec = "auto-safe" if self.settings.get_boolean("hardware-decoding") else "no"
+        hwdec = hwdec_option(self.settings.get_boolean("hardware-decoding"))
         options = {"hwdec": hwdec, "volume": self.settings.get_double("volume")}
         if self.settings.get_string("audio-language"):
             options["alang"] = self.settings.get_string("audio-language")
@@ -490,7 +490,7 @@ class PlayerPage(Adw.NavigationPage):
             thumb_height = THUMB_SIZE
             thumb_width = int(width / height * thumb_height)
         if self.thumb is None:
-            hwdec = "auto-safe" if self.settings.get_boolean("hardware-decoding") else "no"
+            hwdec = hwdec_option(self.settings.get_boolean("hardware-decoding"))
             self.thumb = ThumbPreview(hwdec)
             self.thumb_frame.set_child(self.thumb)
             self.thumb.realize()
@@ -581,6 +581,8 @@ class PlayerPage(Adw.NavigationPage):
         return " · ".join(parts)
 
     def on_playback_restart(self, widget):
+        if self.opening:
+            print(f"player: hwdec {widget.get('hwdec-current', 'unknown') or 'no'}")
         self.opening = False
         self.update_status()
 

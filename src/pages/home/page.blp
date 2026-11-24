@@ -2,85 +2,97 @@ using Gtk 4.0;
 using Adw 1;
 
 template $ChelseaHomePage : Adw.Bin {
-  child: Gtk.Stack stack {
-    transition-type: crossfade;
+  child: Adw.ToolbarView {
+    extend-content-to-top-edge: true;
 
-    Gtk.StackPage {
-      name: "loading";
+    [top]
+    Adw.HeaderBar {
+      show-title: false;
 
-      child: Adw.Spinner {
-        width-request: 48;
-        height-request: 48;
-        halign: center;
-        valign: center;
-      };
+      [start]
+      $ChelseaSidebarButton {}
     }
 
-    Gtk.StackPage {
-      name: "empty";
+    content: Gtk.Stack stack {
+      transition-type: crossfade;
 
-      child: Adw.StatusPage {
-        icon-name: "application-x-addon-symbolic";
-        title: _("Welcome to Chelsea");
-        description: _("Start by installing an addon that provides catalogs");
+      Gtk.StackPage {
+        name: "loading";
 
-        child: Gtk.Button {
-          styles [
-            "suggested-action"
-          ]
-
+        child: Adw.Spinner {
+          width-request: 48;
+          height-request: 48;
           halign: center;
-          label: _("Browse Addons");
-          action-name: "app.open_addons_page";
+          valign: center;
         };
-      };
-    }
+      }
 
-    Gtk.StackPage {
-      name: "home";
+      Gtk.StackPage {
+        name: "empty";
 
-      child: Gtk.ScrolledWindow {
-        hscrollbar-policy: never;
+        child: Adw.StatusPage {
+          icon-name: "application-x-addon-symbolic";
+          title: _("Welcome to Chelsea");
+          description: _("Start by installing an addon that provides catalogs");
 
-        child: Gtk.Box rows_box {
-          orientation: vertical;
-          valign: start;
-          spacing: 18;
-          margin-top: 10;
-          margin-bottom: 10;
-          margin-start: 12;
-          margin-end: 12;
+          child: Gtk.Button {
+            styles [
+              "suggested-action"
+            ]
 
-          Gtk.Revealer carousel_revealer {
-            transition-type: crossfade;
-            margin-start: 6;
-            margin-end: 6;
+            halign: center;
+            label: _("Browse Addons");
+            action-name: "app.open_addons_page";
+          };
+        };
+      }
 
-            child: Gtk.Overlay {
-              child: Adw.Carousel carousel {
-                styles [
-                  "rounded"
-                ]
+      Gtk.StackPage {
+        name: "home";
 
-                overflow: hidden;
-                hexpand: true;
-                height-request: 440;
+        child: Gtk.ScrolledWindow {
+          hscrollbar-policy: never;
+
+          child: Gtk.Box rows_box {
+            orientation: vertical;
+            valign: start;
+            spacing: 18;
+            margin-top: 18;
+            margin-bottom: 18;
+            margin-start: 12;
+            margin-end: 12;
+
+            Gtk.Revealer carousel_revealer {
+              transition-type: crossfade;
+              margin-start: 6;
+              margin-end: 6;
+
+              child: Gtk.Overlay {
+                child: Adw.Carousel carousel {
+                  styles [
+                    "rounded"
+                  ]
+
+                  overflow: hidden;
+                  hexpand: true;
+                  height-request: 320;
+                };
+
+                [overlay]
+                Adw.CarouselIndicatorDots {
+                  styles [
+                    "carousel-dots"
+                  ]
+
+                  carousel: carousel;
+                  valign: start;
+                  margin-top: 6;
+                }
               };
-
-              [overlay]
-              Adw.CarouselIndicatorDots {
-                styles [
-                  "carousel-dots"
-                ]
-
-                carousel: carousel;
-                valign: start;
-                margin-top: 6;
-              }
-            };
-          }
+            }
+          };
         };
-      };
-    }
+      }
+    };
   };
 }

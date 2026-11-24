@@ -15,6 +15,7 @@ class Card(Gtk.Box):
 
     model = GObject.Property(type=models.Meta)
     show_title = GObject.Property(type=bool, default=True)
+    poster_width = GObject.Property(type=int, default=185)
 
     def __init__(self, model=None, **kwargs):
         super().__init__(**kwargs)

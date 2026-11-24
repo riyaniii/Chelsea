@@ -13,7 +13,8 @@
         "--device=dri",
         "--talk-name=org.freedesktop.ScreenSaver",
         "--filesystem=xdg-download/Chelsea:create",
-        "--env=LC_NUMERIC=C"
+        "--env=LC_NUMERIC=C",
+        "--env=GSK_RENDERER=gl"
     ],
     "add-extensions" : {
         "org.freedesktop.Platform.codecs-extra" : {

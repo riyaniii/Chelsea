@@ -7,11 +7,13 @@ from ...components import Hero, Row
 from ...components.cards import open_meta
 from ...components.formats import catalog_title
 from ...integrations import models
+from ...performance import timed
 
 MAX_CONCURRENT = 4
 CAROUSEL_SIZE = 6
 CAROUSEL_INTERVAL_S = 8
-CAROUSEL_HEIGHT = 440
+CAROUSEL_HEIGHT = 320
+ROW_LIMIT = 20
 
 
 @Gtk.Template(resource_path='/io/github/riyaniii/Chelsea/pages/home/page.ui')
@@ -30,6 +32,7 @@ class HomePage(Adw.Bin):
                                     item_type=models.LibraryItem)
         self.rows = []
         self.load_task = None
+        self.waiting_rows = []
         self.limiter = asyncio.Semaphore(MAX_CONCURRENT)
         GLib.timeout_add_seconds(CAROUSEL_INTERVAL_S, self.advance_carousel)
 
@@ -60,7 +63,7 @@ class HomePage(Adw.Bin):
         self.carousel_revealer.set_reveal_child(self.carousel.get_n_pages() > 0)
 
     def make_hero(self, meta):
-        hero = Hero(model=meta, min_height=CAROUSEL_HEIGHT, description_lines=3, compact=True)
+        hero = Hero(model=meta, min_height=CAROUSEL_HEIGHT, description_lines=2, compact=True)
         hero.connect("play", lambda hero: Gio.Application.get_default().activate_action(
             "play_meta", GLib.Variant("(ss)", (meta.type, meta.id))))
         hero.connect("activated", lambda hero: open_meta(meta))
@@ -72,6 +75,7 @@ class HomePage(Adw.Bin):
             return
         if self.load_task:
             self.load_task.cancel()
+        self.waiting_rows = []
 
         for row in [self.continue_row] + self.rows:
             if row.get_parent() is not None:
@@ -100,16 +104,27 @@ class HomePage(Adw.Bin):
     async def load_row(self, row, featured: bool):
         async with self.limiter:
             try:
-                metas = await self.integration.getCatalog(row.catalog)
+                with timed(f"loading catalog {row.catalog.key}"):
+                    metas = await self.integration.getCatalog(row.catalog)
             except asyncio.CancelledError:
                 raise
             except Exception as error:
                 row.set_error(_("Could not load this catalog"))
                 print(f"catalog {row.catalog.key} failed: {error}")
                 return
-        row.set_items(metas)
-        if featured:
-            self.sync_carousel([meta for meta in metas if meta.description])
+        self.waiting_rows.append((row, metas, featured))
+        if len(self.waiting_rows) == 1:
+            GLib.idle_add(self.show_next_row)
+
+    def show_next_row(self):
+        if not self.waiting_rows:
+            return GLib.SOURCE_REMOVE
+        row, metas, featured = self.waiting_rows.pop(0)
+        with timed(f"showing row {row.catalog.key}"):
+            row.set_items(metas[:ROW_LIMIT])
+            if featured:
+                self.sync_carousel([meta for meta in metas if meta.description])
+        return GLib.SOURCE_CONTINUE if self.waiting_rows else GLib.SOURCE_REMOVE
 
     def on_see_all(self, row):
         Gio.Application.get_default().activate_action("show_catalog", GLib.Variant("s", row.catalog.key))

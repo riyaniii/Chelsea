@@ -4,32 +4,32 @@ using Adw 1;
 template $ChelseaDiscoverPage : Adw.Bin {
   child: Adw.ToolbarView {
     [top]
-    Gtk.Box {
-      halign: start;
-      spacing: 6;
-      margin-top: 0;
-      margin-bottom: 6;
-      margin-start: 18;
-      margin-end: 18;
+    Adw.HeaderBar {
+      [start]
+      $ChelseaSidebarButton {}
 
-      Gtk.DropDown type_dropdown {
-        tooltip-text: _("Type");
-        notify::selected => $on_type_changed();
-        styles ["flat"]
-      }
+      title-widget: Gtk.Box {
+        spacing: 6;
 
-      Gtk.DropDown catalog_dropdown {
-        tooltip-text: _("Catalog");
-        notify::selected => $on_catalog_changed();
-        styles ["flat"]
-      }
+        Gtk.DropDown type_dropdown {
+          tooltip-text: _("Type");
+          notify::selected => $on_type_changed();
+          styles ["flat"]
+        }
 
-      Gtk.DropDown genre_dropdown {
-        tooltip-text: _("Genre");
-        enable-search: true;
-        notify::selected => $on_genre_changed();
-        styles ["flat"]
-      }
+        Gtk.DropDown catalog_dropdown {
+          tooltip-text: _("Catalog");
+          notify::selected => $on_catalog_changed();
+          styles ["flat"]
+        }
+
+        Gtk.DropDown genre_dropdown {
+          tooltip-text: _("Genre");
+          enable-search: true;
+          notify::selected => $on_genre_changed();
+          styles ["flat"]
+        }
+      };
     }
 
     content: Gtk.Stack stack {

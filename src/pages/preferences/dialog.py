@@ -1,10 +1,12 @@
 import asyncio
 from gettext import gettext as _
 
-from gi.repository import Adw, Gio, GLib, GObject, Gtk
+from gi.repository import Adw, Gio, Gtk
 
+from ... import profiles
 from ...components.avatars import load_avatar
 from ...components.download_location import choose_folder, folder_label
+from ...gpu import nvidia_available
 
 
 PROFILES = ("soft", "balanced", "fast")
@@ -15,11 +17,12 @@ class PreferencesDialog(Adw.PreferencesDialog):
     __gtype_name__ = "ChelseaPreferencesDialog"
 
     account_avatar = Gtk.Template.Child()
-    account_name = Gtk.Template.Child()
-    account_detail = Gtk.Template.Child()
-    sign_in_button = Gtk.Template.Child()
-    sign_out_button = Gtk.Template.Child()
+    name_row = Gtk.Template.Child()
+    email_row = Gtk.Template.Child()
+    sign_in_row = Gtk.Template.Child()
+    sign_out_row = Gtk.Template.Child()
     hwdec_row = Gtk.Template.Child()
+    discrete_gpu_row = Gtk.Template.Child()
     download_folder_row = Gtk.Template.Child()
     ask_location_row = Gtk.Template.Child()
     audio_language_row = Gtk.Template.Child()
@@ -36,6 +39,8 @@ class PreferencesDialog(Adw.PreferencesDialog):
         self.engine = app.engine
 
         self.settings.bind("hardware-decoding", self.hwdec_row, "active", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("prefer-discrete-gpu", self.discrete_gpu_row, "active", Gio.SettingsBindFlags.DEFAULT)
+        self.discrete_gpu_row.set_visible(nvidia_available())
         self.settings.bind("torrent-cache-size", self.cache_row, "value", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("torrent-upload", self.upload_row, "active", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ask-download-location", self.ask_location_row, "active", Gio.SettingsBindFlags.DEFAULT)
@@ -53,13 +58,14 @@ class PreferencesDialog(Adw.PreferencesDialog):
 
     def update_account(self):
         profile = self.integration.profile or {}
-        is_account = profile.get("kind") == "stremio"
-        self.account_name.set_label(profile.get("name", ""))
-        self.account_detail.set_label(profile.get("email") if is_account else _("Guest profile on this computer"))
+        is_account = profile.get("kind") == profiles.ACCOUNT
+        self.name_row.set_text(profile.get("name", ""))
+        self.email_row.set_subtitle(profile.get("email", ""))
+        self.email_row.set_visible(is_account)
         self.account_avatar.set_text(profile.get("name", ""))
         load_avatar(self.account_avatar, self.integration.avatar_url)
-        self.sign_in_button.set_visible(not is_account)
-        self.sign_out_button.set_visible(is_account)
+        self.sign_in_row.set_visible(not is_account)
+        self.sign_out_row.set_visible(is_account)
 
     def on_profile_changed(self, row, pspec):
         self.settings.set_string("torrent-profile", PROFILES[row.get_selected()])
@@ -82,7 +88,6 @@ class PreferencesDialog(Adw.PreferencesDialog):
         asyncio.create_task(self.sign_out())
 
     async def sign_out(self):
-        from ... import profiles
         app = Gio.Application.get_default()
         profile = self.integration.profile
         await self.integration.logOut()
@@ -91,9 +96,16 @@ class PreferencesDialog(Adw.PreferencesDialog):
         app.activate_action("switch_profile", None)
 
     @Gtk.Template.Callback()
-    def on_switch_activated(self, button):
-        self.close()
-        Gio.Application.get_default().activate_action("switch_profile", None)
+    def on_name_applied(self, row):
+        name = row.get_text().strip()
+        profile = self.integration.profile
+        if not name or profile is None:
+            row.set_text(profile.get("name", "") if profile else "")
+            return
+        profiles.update_profile(self.settings, profile["id"], name=name)
+        profile["name"] = name
+        self.integration.profile_name = name
+        self.account_avatar.set_text(name)
 
     @Gtk.Template.Callback()
     def on_download_folder_activated(self, row):

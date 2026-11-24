@@ -36,6 +36,11 @@
       <summary>Hardware decoding</summary>
       <description>Let mpv decode video on the GPU when it is safe to do so.</description>
     </key>
+    <key name="prefer-discrete-gpu" type="b">
+      <default>true</default>
+      <summary>Use the discrete GPU</summary>
+      <description>Start Chelsea on the NVIDIA graphics card when one is available. Takes effect after a restart.</description>
+    </key>
     <key name="audio-language" type="s">
       <default>''</default>
       <summary>Preferred audio languages</summary>

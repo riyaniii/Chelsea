@@ -28,12 +28,16 @@
     <file>icons/compass-symbolic.svg</file>
     <file>icons/heart-filled-symbolic.svg</file>
     <file>icons/heart-outline-thick-symbolic.svg</file>
+    <file>icons/io.github.riyaniii.Kaori.svg</file>
     <file>icons/library-symbolic.svg</file>
 
     <file>components/card.ui</file>
     <file>components/donate.ui</file>
     <file>components/grid.ui</file>
     <file>components/hero.ui</file>
+    <file>components/file_grid.ui</file>
+    <file>components/link_dialog.ui</file>
+    <file>components/magnet_dialog.ui</file>
     <file>components/main_view.ui</file>
     <file>components/row.ui</file>
     <file>components/shortcuts.ui</file>
@@ -47,7 +51,6 @@
     <file>pages/details/streams_view.ui</file>
     <file>pages/discover/page.ui</file>
     <file>pages/downloads/page.ui</file>
-    <file>pages/downloads/row.ui</file>
     <file>pages/home/page.ui</file>
     <file>pages/library/page.ui</file>
     <file>pages/player/options.ui</file>

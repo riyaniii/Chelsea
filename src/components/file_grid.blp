@@ -1,0 +1,18 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ChelseaFileGrid : Adw.Bin {
+  styles [
+    "file-grid"
+  ]
+
+  child: Gtk.ScrolledWindow {
+    hscrollbar-policy: never;
+
+    child: Gtk.GridView grid {
+      max-columns: 20;
+      enable-rubberband: true;
+      activate => $on_activate();
+    };
+  };
+}

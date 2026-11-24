@@ -2,7 +2,7 @@ import ctypes
 
 from gi.repository import GLib, Gtk
 
-from .video import GL_FRAMEBUFFER_BINDING, load_gl_function, mpv, proc_address_loader
+from .video import GL_FRAMEBUFFER_BINDING, display_params, load_gl_function, mpv, proc_address_loader
 
 THUMB_OPTIONS = {
     "vo": "libmpv",
@@ -67,7 +67,8 @@ class ThumbPreview(Gtk.GLArea):
         self.gl_get_integerv = load_gl_function(
             "glGetIntegerv", None, [ctypes.c_uint, ctypes.POINTER(ctypes.c_int)])
         self.render_context = mpv.MpvRenderContext(
-            self.player, "opengl", opengl_init_params={"get_proc_address": self.proc_address})
+            self.player, "opengl", opengl_init_params={"get_proc_address": self.proc_address},
+            **display_params(self))
         self.render_context.update_cb = lambda: GLib.idle_add(self.queue_render, priority=GLib.PRIORITY_HIGH_IDLE)
 
     def do_unrealize(self):

@@ -3,6 +3,7 @@ from gettext import gettext as _
 from gi.repository import Adw, Gio, GObject, Gtk
 
 from ...components import Grid
+from ...components.dropdowns import make_shrinkable
 from ...components.formats import type_title
 
 
@@ -23,6 +24,7 @@ class LibraryPage(Adw.Bin):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        make_shrinkable(self.type_dropdown, self.sort_dropdown)
         self.integration = Gio.Application.get_default().integration
         self.types = [""]
         self.filter = Gtk.CustomFilter.new(self.filter_func)

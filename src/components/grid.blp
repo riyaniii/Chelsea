@@ -30,6 +30,7 @@ template $ChelseaGrid : Adw.BreakpointBin {
 
     setters {
       grid.min-columns: 5;
+      grid.max-columns: 5;
     }
   }
 
@@ -38,6 +39,7 @@ template $ChelseaGrid : Adw.BreakpointBin {
 
     setters {
       grid.min-columns: 4;
+      grid.max-columns: 4;
     }
   }
 
@@ -46,14 +48,16 @@ template $ChelseaGrid : Adw.BreakpointBin {
 
     setters {
       grid.min-columns: 3;
+      grid.max-columns: 3;
     }
   }
 
   Adw.Breakpoint {
-    condition ("max-width: 400sp")
+    condition ("max-width: 520sp")
 
     setters {
       grid.min-columns: 2;
+      grid.max-columns: 2;
     }
   }
 }
