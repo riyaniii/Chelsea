@@ -5,7 +5,7 @@ Chelsea lets you discover and watch movies and series from your Stremio addons, 
 (If anyone can make a better app icon please hit me up)
 ## Features
 
-- A beautiful libadwaita UI
+- A beautiful libadwaita UI that works on desktops, tablets and phones
 - Catalogs, search and title pages from any Stremio addon
 - A built-in mpv player with subtitles, chapters and seek bar previews
 - Torrent streaming built in
@@ -62,11 +62,6 @@ You can install Chelsea as a flatpak on Linux
       <img src="assets/Screenshots/discover.png" width="100%">
       <br>
       <strong>Discover</strong>
-    </td>
-    <td align="center">
-      <img src="assets/Screenshots/downloads.png" width="100%">
-      <br>
-      <strong>Downloads</strong>
     </td>
   </tr>
 </table>

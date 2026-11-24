@@ -10,3 +10,4 @@ Keywords=stremio;movies;series;tv;torrent;player;
 StartupNotify=true
 MimeType=x-scheme-handler/stremio;
 DBusActivatable=true
+X-Purism-FormFactor=Workstation;Mobile;

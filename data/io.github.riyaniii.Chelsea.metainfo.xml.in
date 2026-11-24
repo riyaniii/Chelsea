@@ -7,13 +7,12 @@
   <name>Chelsea</name>
   <summary>Watch movies and series</summary>
   <description>
-    <p>Chelsea is a Stremio client for GNOME. Browse catalogs from your addons, keep a synced library, and play streams and torrents in a built-in player.</p>
+    <p>Chelsea lets you discover and watch movies and series from your Stremio addons, with a beautiful libadwaita interface and a built-in player.</p>
     <ul>
-      <li>Catalogs, search and title pages from your Stremio addons</li>
-      <li>Your library and watch progress, synced with your Stremio account</li>
-      <li>Profiles for everyone who watches, with a guest profile that stays on this computer</li>
-      <li>A built-in mpv player with subtitles, chapters and seek-bar previews</li>
-      <li>Torrent streaming with no extra software</li>
+      <li>A beautiful libadwaita interface that works on desktops, tablets and phones</li>
+      <li>Catalogs, search and title pages from any Stremio addon</li>
+      <li>A built-in mpv player with subtitles, chapters and seek bar previews</li>
+      <li>Torrent streaming built in</li>
       <li>Downloads for offline viewing</li>
     </ul>
   </description>
@@ -43,6 +42,7 @@
   <supports>
     <control>pointing</control>
     <control>keyboard</control>
+    <control>touch</control>
   </supports>
 
   <screenshots>
@@ -62,10 +62,6 @@
       <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.2/assets/Screenshots/discover.png</image>
       <caption>Discover</caption>
     </screenshot>
-    <screenshot>
-      <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.2/assets/Screenshots/downloads.png</image>
-      <caption>Downloads</caption>
-    </screenshot>
   </screenshots>
 
   <releases>
@@ -73,7 +69,7 @@
       <description translate="no">
         <ul>
           <li>Hardware decoding now works, and Chelsea uses the discrete NVIDIA graphics card when one is available</li>
-          <li>New sidebar navigation that adapts down to phone sizes</li>
+          <li>New sidebar navigation, and the interface now adapts to tablets and phones</li>
           <li>Addon, magnet and video links open in a dialog</li>
           <li>Magnet links show the torrent's files and folders in a file grid</li>
           <li>Downloads shows the downloads folder in a file grid with progress for unfinished files</li>
