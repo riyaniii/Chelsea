@@ -27,18 +27,28 @@ template $ChelseaPreferencesDialog : Adw.PreferencesDialog {
 
     Adw.PreferencesGroup {
       title: _("Languages");
-      description: _("Comma separated language codes, for example eng,jpn");
+      description: _("When a video has several audio or subtitle tracks, Chelsea picks the ones in these languages");
 
-      Adw.EntryRow audio_language_row {
-        title: _("Preferred Audio Languages");
-        show-apply-button: true;
-        apply => $on_audio_language_applied();
+      Adw.ComboRow audio_language_row {
+        title: _("Audio Language");
       }
 
-      Adw.EntryRow subtitle_language_row {
-        title: _("Preferred Subtitle Languages");
-        show-apply-button: true;
-        apply => $on_subtitle_language_applied();
+      Adw.ComboRow subtitle_language_row {
+        title: _("Subtitle Language");
+      }
+
+      Adw.SwitchRow hide_subtitles_row {
+        title: _("Hide Other Subtitle Languages");
+        subtitle: _("Only list subtitles in the chosen subtitle language");
+      }
+    }
+
+    Adw.PreferencesGroup {
+      title: _("Streams");
+
+      Adw.SwitchRow group_streams_row {
+        title: _("Group Streams by Addon");
+        subtitle: _("Show a tab for each addon instead of one list with every stream");
       }
     }
   }
@@ -155,6 +165,13 @@ template $ChelseaPreferencesDialog : Adw.PreferencesDialog {
 
         title: _("Email");
         subtitle-selectable: true;
+      }
+    }
+
+    Adw.PreferencesGroup {
+      Adw.SwitchRow open_last_profile_row {
+        title: _("Skip Profile Selection");
+        subtitle: _("Open the last used profile when Chelsea starts");
       }
     }
 

@@ -11,7 +11,6 @@
         "--socket=wayland",
         "--socket=pulseaudio",
         "--device=dri",
-        "--talk-name=org.freedesktop.ScreenSaver",
         "--filesystem=xdg-download/Chelsea:create",
         "--env=LC_NUMERIC=C",
         "--env=GSK_RENDERER=gl"
@@ -41,7 +40,8 @@
     ],
     "modules" : [
         "python3-diskcache.json",
-        "python3-chelsea-deps.json",
+        "python3-httpx.json",
+        "python3-mpv.json",
         {
             "name" : "nuvio-engine",
             "buildsystem" : "simple",

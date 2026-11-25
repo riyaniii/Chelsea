@@ -34,7 +34,7 @@ template $ChelseaStreamCard : Gtk.Box {
     }
   }
 
-  Gtk.MenuButton {
+  Gtk.MenuButton more_button {
     styles [
       "flat",
       "circular"
@@ -43,7 +43,6 @@ template $ChelseaStreamCard : Gtk.Box {
     valign: center;
     icon-name: "view-more-symbolic";
     tooltip-text: _("More");
-    menu-model: stream_menu;
   }
 }
 

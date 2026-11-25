@@ -21,25 +21,12 @@ from .integrations import Images, Nuvio, Stremio
 from . import profiles
 from .integrations import LoginFailed
 from .gpu import prefer_nvidia_gpu
-from .performance import setup_logging
 from .mpris import MPRIS
 from .passwords import Secrets
 
 METAINFO_PATH = f'{RESOURCE_PATH}/{APPLICATION_ID}.metainfo.xml'
-SHUTDOWN_TIMEOUT = 5
 REFRESH_INTERVAL = 120
 REFRESH_MIN_GAP = 30
-
-
-def run_until_done(coro, timeout: float) -> None:
-    task = asyncio.ensure_future(coro)
-    context = GLib.MainContext.default()
-    deadline = time.monotonic() + timeout
-    while not task.done() and time.monotonic() < deadline:
-        if not context.iteration(False):
-            time.sleep(0.01)
-    if not task.done():
-        task.cancel()
 
 
 class ChelseaApplication(Adw.Application):
@@ -133,10 +120,16 @@ class ChelseaApplication(Adw.Application):
             self.window.present()
             return
         window = self.open_window()
-        window.show_profiles()
         if not self.settings.get_boolean('welcome-shown'):
+            window.show_profiles()
             from .pages.setup import SetupDialog
             SetupDialog().present(window)
+            return
+        last_profile = profiles.find_profile(self.settings, self.settings.get_string('last-profile'))
+        if self.settings.get_boolean('open-last-profile') and last_profile is not None:
+            self.select_profile(last_profile)
+        else:
+            window.show_profiles()
 
     def do_open(self, files, n_files, hint) -> None:
         self.do_activate()
@@ -166,9 +159,9 @@ class ChelseaApplication(Adw.Application):
         return False
 
     def do_shutdown(self) -> None:
-        run_until_done(self.integration.close(), SHUTDOWN_TIMEOUT)
-        run_until_done(self.images.close(), SHUTDOWN_TIMEOUT)
-        run_until_done(self.downloads.close(), SHUTDOWN_TIMEOUT)
+        self.integration.close()
+        self.images.close()
+        self.downloads.close()
         self.engine.stop()
         Adw.Application.do_shutdown(self)
 
@@ -256,6 +249,5 @@ class ChelseaApplication(Adw.Application):
 
 
 def main(version: str) -> int:
-    setup_logging()
     prefer_nvidia_gpu(Gio.Settings(schema_id=APPLICATION_ID))
     return ChelseaApplication(version).run(sys.argv)

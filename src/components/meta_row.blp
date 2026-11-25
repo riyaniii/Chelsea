@@ -26,6 +26,7 @@ template $ChelseaMetaRow : Gtk.Box {
       ]
 
       label: _("See All");
+      tooltip-text: _("Show everything in this catalog");
       visible: bind template.show-all;
       clicked => $on_see_all_clicked();
     }

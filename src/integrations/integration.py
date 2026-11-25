@@ -82,7 +82,7 @@ class Integration(GObject.Object):
     async def refresh(self):
         raise NotImplementedError
 
-    async def close(self):
+    def close(self):
         for task in list(self.background):
             task.cancel()
 

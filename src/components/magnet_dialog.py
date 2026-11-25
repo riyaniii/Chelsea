@@ -4,7 +4,6 @@ from gettext import gettext as _
 from gi.repository import Adw, Gio, GObject, Gtk
 
 from ..integrations.nuvio import isVideo, magnetUri
-from ..performance import timed
 from .file_grid import file_icon
 from .link_dialog import play_link
 
@@ -71,10 +70,9 @@ class MagnetDialog(Adw.Dialog):
         try:
             if not self.app.start_engine():
                 raise RuntimeError(engine.error)
-            with timed(f"reading torrent {link.info_hash}"):
-                torrent_id = await engine.addTorrent(magnetUri(link.info_hash, link.trackers, link.name))
-                await engine.waitForMetadata(torrent_id)
-                self.files = engine.getFiles(torrent_id)
+            torrent_id = await engine.addTorrent(magnetUri(link.info_hash, link.trackers, link.name))
+            await engine.waitForMetadata(torrent_id)
+            self.files = engine.getFiles(torrent_id)
         except asyncio.CancelledError:
             raise
         except Exception as error:

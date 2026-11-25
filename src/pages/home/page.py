@@ -7,7 +7,6 @@ from ...components import Hero, Row
 from ...components.cards import open_meta
 from ...components.formats import catalog_title
 from ...integrations import models
-from ...performance import timed
 
 MAX_CONCURRENT = 4
 CAROUSEL_SIZE = 6
@@ -104,8 +103,7 @@ class HomePage(Adw.Bin):
     async def load_row(self, row, featured: bool):
         async with self.limiter:
             try:
-                with timed(f"loading catalog {row.catalog.key}"):
-                    metas = await self.integration.getCatalog(row.catalog)
+                metas = await self.integration.getCatalog(row.catalog)
             except asyncio.CancelledError:
                 raise
             except Exception as error:
@@ -120,10 +118,9 @@ class HomePage(Adw.Bin):
         if not self.waiting_rows:
             return GLib.SOURCE_REMOVE
         row, metas, featured = self.waiting_rows.pop(0)
-        with timed(f"showing row {row.catalog.key}"):
-            row.set_items(metas[:ROW_LIMIT])
-            if featured:
-                self.sync_carousel([meta for meta in metas if meta.description])
+        row.set_items(metas[:ROW_LIMIT])
+        if featured:
+            self.sync_carousel([meta for meta in metas if meta.description])
         return GLib.SOURCE_CONTINUE if self.waiting_rows else GLib.SOURCE_REMOVE
 
     def on_see_all(self, row):

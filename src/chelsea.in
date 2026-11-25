@@ -16,6 +16,8 @@ locale.bindtextdomain('chelsea', localedir)
 locale.textdomain('chelsea')
 gettext.bindtextdomain('chelsea', localedir)
 gettext.textdomain('chelsea')
+translation = gettext.translation('chelsea', localedir, fallback=True)
+gettext.gettext = translation.gettext
 
 if __name__ == '__main__':
     from gi.repository import Gio

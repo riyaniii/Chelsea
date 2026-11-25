@@ -49,9 +49,7 @@ class Images:
         self.textures = OrderedDict()
         self.users = {}
 
-    async def close(self):
-        await self.http.aclose()
-        await self.priority_http.aclose()
+    def close(self):
         self.decoder.shutdown(wait=False, cancel_futures=True)
         self.cache.close()
 

@@ -25,6 +25,7 @@ template $ChelseaOptionsButton : Gtk.MenuButton {
         Gtk.Button {
           hexpand: true;
           label: _("Reset All");
+          tooltip-text: _("Reset the delays and speed to their defaults");
           clicked => $on_reset_all();
         }
 

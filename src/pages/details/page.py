@@ -4,7 +4,6 @@ from gettext import gettext as _
 from gi.repository import Adw, Gio, GLib, GObject, Gtk
 
 from ...components import Hero
-from ...performance import timed
 from ...components.formats import episode_code
 from ...integrations import models
 from .panel import EpisodesPanel
@@ -32,16 +31,12 @@ class DetailsPage(Adw.NavigationPage):
         self.library_handler = self.integration.connect(
             "notify::library-revision", lambda *args: self.update_play_label())
         self.connect("unrealize", lambda page: self.cleanup())
-        self.split_view.connect("notify::show-sidebar", self.on_sidebar_toggled)
         close = Gio.SimpleAction.new("close", None)
         close.connect("activate", lambda action, value: self.split_view.set_show_sidebar(False))
         group = Gio.SimpleActionGroup()
         group.add_action(close)
         self.insert_action_group("panel", group)
         self.load()
-
-    def on_sidebar_toggled(self, split_view, pspec):
-        self.set_can_pop(not split_view.get_show_sidebar())
 
     def cleanup(self):
         if self.task:
@@ -57,8 +52,7 @@ class DetailsPage(Adw.NavigationPage):
 
     async def fetch(self):
         try:
-            with timed(f"loading details {self.meta.id}"):
-                await self.integration.getMeta(self.meta.type, self.meta.id)
+            await self.integration.getMeta(self.meta.type, self.meta.id)
         except Exception as error:
             print(f"details: {error}")
             self.error_page.set_description(str(error))

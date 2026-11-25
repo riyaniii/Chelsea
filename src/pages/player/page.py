@@ -3,6 +3,7 @@ from gettext import gettext as _
 
 from gi.repository import Adw, Gdk, Gio, GLib, Gtk
 
+from ...languages import code_list
 from ...components.formats import duration_text, episode_code, rate_text
 from ...integrations import EngineError, models
 from .bindings import MOUSE_BUTTONS, build_bindings, key_combo, nonrepeatable_keys
@@ -131,6 +132,8 @@ class PlayerPage(Adw.NavigationPage):
         self.normal_speed = 1.0
         self.wheel_y = 0.0
         self.pressed_keys = set()
+        self.preferred_subtitles = code_list(self.settings.get_string("subtitle-language"))
+        self.hide_other_subtitles = self.settings.get_boolean("hide-other-subtitles")
 
         hwdec = hwdec_option(self.settings.get_boolean("hardware-decoding"))
         options = {"hwdec": hwdec, "volume": self.settings.get_double("volume")}
@@ -362,14 +365,23 @@ class PlayerPage(Adw.NavigationPage):
         except Exception as error:
             print(f"player: subtitles failed: {error}")
             return
-        preferred = [code.strip() for code in self.settings.get_string("subtitle-language").split(",") if code.strip()]
-        subtitles.sort(key=lambda item: (item.lang not in preferred, item.lang))
+        subtitles = [subtitle for subtitle in subtitles if self.shows_subtitle(subtitle.lang)]
+        subtitles.sort(key=lambda item: (not self.is_preferred(item.lang), item.lang))
         self.addon_subtitles = subtitles[:MAX_ADDON_SUBTITLES]
         self.update_track_menus()
-        if preferred and self.addon_subtitles and self.addon_subtitles[0].lang in preferred:
-            has_preferred = any(track.get("type") == "sub" and track.get("lang") in preferred for track in self.tracks)
+        if self.addon_subtitles and self.is_preferred(self.addon_subtitles[0].lang):
+            has_preferred = any(track.get("type") == "sub" and self.is_preferred(track.get("lang"))
+                                for track in self.tracks)
             if not has_preferred:
                 self.load_addon_subtitle(0, select=True)
+
+    def is_preferred(self, lang: str | None) -> bool:
+        return (lang or "").lower() in self.preferred_subtitles
+
+    def shows_subtitle(self, lang: str | None) -> bool:
+        if not self.hide_other_subtitles or not self.preferred_subtitles:
+            return True
+        return self.is_preferred(lang)
 
     def load_addon_subtitle(self, index: int, select: bool = True):
         if not (0 <= index < len(self.addon_subtitles)):
@@ -761,6 +773,8 @@ class PlayerPage(Adw.NavigationPage):
         for track in self.tracks:
             kind = track.get("type")
             if kind not in menus:
+                continue
+            if kind == "sub" and track.get("lang") and not self.shows_subtitle(track.get("lang")):
                 continue
             menus[kind].append(track_label(track), f"player.{actions[kind]}::{track.get('id')}")
             counts[kind] += 1

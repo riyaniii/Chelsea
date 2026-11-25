@@ -8,6 +8,9 @@ from ...integrations import models
 from ...integrations.nuvio import magnetUri
 from .stream_card import StreamCard
 
+STREAMS_PER_FRAME = 20
+FRAME_TIME_S = 0.016
+
 
 @Gtk.Template(resource_path='/io/github/riyaniii/Chelsea/pages/details/streams_view.ui')
 class StreamsView(Adw.Bin):
@@ -24,6 +27,7 @@ class StreamsView(Adw.Bin):
         self.video = video
         self.video_id = video.id if video is not None else (meta.default_video_id or meta.id)
         self.integration = Gio.Application.get_default().integration
+        self.group_by_source = Gio.Application.get_default().settings.get_boolean("group-streams")
         self.sources = []
 
         self.store = Gio.ListStore(item_type=models.Stream)
@@ -46,9 +50,11 @@ class StreamsView(Adw.Bin):
             async for source, streams in self.integration.iterStreams(self.meta.type, self.video_id):
                 if not streams:
                     continue
-                self.store.splice(self.store.get_n_items(), 0, streams)
                 self.add_source(source)
                 self.stack.set_visible_child_name("streams")
+                for start in range(0, len(streams), STREAMS_PER_FRAME):
+                    self.store.splice(self.store.get_n_items(), 0, streams[start:start + STREAMS_PER_FRAME])
+                    await asyncio.sleep(FRAME_TIME_S)
         finally:
             self.task = None
         if not self.store.get_n_items():
@@ -61,9 +67,11 @@ class StreamsView(Adw.Bin):
         self.source_switcher.add(Adw.Toggle(name=source.id, label=source.name))
         if len(self.sources) == 1:
             self.source_switcher.set_active_name(source.id)
-        self.switcher_scroller.set_visible(len(self.sources) > 1)
+        self.switcher_scroller.set_visible(self.group_by_source and len(self.sources) > 1)
 
     def filter_func(self, stream):
+        if not self.group_by_source:
+            return True
         active = self.source_switcher.get_active_name()
         return not active or stream.source_id == active
 

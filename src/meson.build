@@ -28,11 +28,11 @@ chelsea_sources = [
   'actions.py',
   'constants.py',
   'downloads.py',
+  'languages.py',
   'main.py',
   'gpu.py',
   'mpris.py',
   'passwords.py',
-  'performance.py',
   'profiles.py',
 ]
 

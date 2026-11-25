@@ -25,7 +25,7 @@
   <url type="vcs-browser">https://github.com/riyaniii/Chelsea</url>
   <url type="bugtracker">https://github.com/riyaniii/Chelsea/issues</url>
   <url type="donation">https://buymeacoffee.com/riyanparvez</url>
-  <url type="contribute">https://github.com/riyaniii/Chelsea/blob/main/CONTRIBUTING.md</url>
+  <url type="contribute">https://github.com/riyaniii/Chelsea/blob/master/CONTRIBUTING.md</url>
 
   <translation type="gettext">chelsea</translation>
   <launchable type="desktop-id">io.github.riyaniii.Chelsea.desktop</launchable>
@@ -47,24 +47,40 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.2/assets/Screenshots/home.png</image>
+      <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.3/assets/Screenshots/home.png</image>
       <caption>Home</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.2/assets/Screenshots/details.png</image>
+      <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.3/assets/Screenshots/details.png</image>
       <caption>Title details and episodes</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.2/assets/Screenshots/player.png</image>
+      <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.3/assets/Screenshots/player.png</image>
       <caption>Player</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.2/assets/Screenshots/discover.png</image>
+      <image>https://raw.githubusercontent.com/riyaniii/Chelsea/0.1.3/assets/Screenshots/discover.png</image>
       <caption>Discover</caption>
     </screenshot>
   </screenshots>
 
   <releases>
+    <release version="0.1.3" date="2026-11-25">
+      <description translate="no">
+        <ul>
+          <li>Fixed a crash when going back from a title page</li>
+          <li>Quitting with Ctrl+Q now closes Chelsea right away</li>
+          <li>Audio and subtitle languages are picked from a list</li>
+          <li>Subtitles in other languages can be hidden</li>
+          <li>Streams from every addon can be shown in one list</li>
+          <li>The last used profile can open at startup</li>
+          <li>Stream lists open without freezing the window</li>
+          <li>The home page no longer reloads every few minutes</li>
+          <li>Faster interface overall</li>
+          <li>More buttons explain what they do when you hover over them</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.1.2" date="2026-11-24">
       <description translate="no">
         <ul>

@@ -30,6 +30,7 @@ src/integrations/integration.py
 src/integrations/models.py
 src/integrations/nuvio.py
 src/integrations/stremio.py
+src/languages.py
 src/main.py
 src/mpris.py
 src/pages/addons/addon_row.blp

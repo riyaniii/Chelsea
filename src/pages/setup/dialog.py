@@ -6,6 +6,7 @@ from gi.repository import Adw, Gio, Gtk
 from ... import profiles
 from ...components.download_location import choose_folder, folder_label
 from ...integrations import IntegrationError, LoginFailed
+from ...languages import setup_language_row
 
 PROFILES = ("soft", "balanced", "fast")
 
@@ -48,8 +49,8 @@ class SetupDialog(Adw.Dialog):
         self.settings.bind('torrent-cache-size', self.cache_row, 'value', Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind('torrent-upload', self.upload_row, 'active', Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind('hardware-decoding', self.hwdec_row, 'active', Gio.SettingsBindFlags.DEFAULT)
-        self.settings.bind('audio-language', self.audio_language_row, 'text', Gio.SettingsBindFlags.DEFAULT)
-        self.settings.bind('subtitle-language', self.subtitle_language_row, 'text', Gio.SettingsBindFlags.DEFAULT)
+        setup_language_row(self.audio_language_row, self.settings, 'audio-language')
+        setup_language_row(self.subtitle_language_row, self.settings, 'subtitle-language')
         self.settings.bind('ask-download-location', self.ask_location_row, 'active', Gio.SettingsBindFlags.DEFAULT)
         self.download_folder_row.set_subtitle(folder_label(self.settings))
         profile = self.settings.get_string('torrent-profile')

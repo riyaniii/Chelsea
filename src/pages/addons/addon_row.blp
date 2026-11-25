@@ -104,6 +104,7 @@ template $ChelseaAddonRow : Gtk.Box {
           ]
 
           label: _("Install");
+          tooltip-text: _("Add this addon's catalogs and streams");
           clicked => $on_action_clicked();
         };
       }
@@ -112,7 +113,8 @@ template $ChelseaAddonRow : Gtk.Box {
         name: "remove";
 
         child: Gtk.Button {
-                    label: _("Remove");
+          label: _("Remove");
+          tooltip-text: _("Uninstall this addon");
           clicked => $on_action_clicked();
         };
       }

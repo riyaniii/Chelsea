@@ -106,6 +106,7 @@ template $ChelseaHero : Gtk.Overlay {
           "suggested-action"
         ]
 
+        tooltip-text: _("Choose a stream to watch");
         clicked => $on_play_clicked();
 
         child: Adw.ButtonContent {
@@ -115,7 +116,8 @@ template $ChelseaHero : Gtk.Overlay {
       }
 
       Gtk.Button {
-                visible: bind template.compact inverted;
+        visible: bind template.compact inverted;
+        tooltip-text: bind $library_tooltip(template.model as <$ChelseaMeta>.in_library) as <string>;
         clicked => $on_library_clicked();
 
         child: Adw.ButtonContent {
@@ -133,12 +135,13 @@ template $ChelseaHero : Gtk.Overlay {
         valign: center;
         visible: bind template.compact;
         icon-name: bind $library_icon(template.model as <$ChelseaMeta>.in_library) as <string>;
-        tooltip-text: bind $library_label(template.model as <$ChelseaMeta>.in_library) as <string>;
+        tooltip-text: bind $library_tooltip(template.model as <$ChelseaMeta>.in_library) as <string>;
         clicked => $on_library_clicked();
       }
 
       Gtk.Button {
-                visible: bind $trailer_visible(template.compact, template.model as <$ChelseaMeta>.trailer) as <bool>;
+        visible: bind $trailer_visible(template.compact, template.model as <$ChelseaMeta>.trailer) as <bool>;
+        tooltip-text: _("Watch the trailer in your browser");
         clicked => $on_trailer_clicked();
 
         child: Adw.ButtonContent {

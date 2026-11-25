@@ -148,3 +148,7 @@ class Hero(Gtk.Overlay):
     @Gtk.Template.Callback()
     def library_label(self, obj, in_library):
         return _("In Library") if in_library else _("Add to Library")
+
+    @Gtk.Template.Callback()
+    def library_tooltip(self, obj, in_library):
+        return _("Remove from your library") if in_library else _("Save to your library")

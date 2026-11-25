@@ -149,6 +149,7 @@ template $ChelseaSetupDialog : Adw.Dialog {
 
                       Gtk.LinkButton {
                         label: _("Create an Account");
+                        tooltip-text: _("Opens the Stremio website");
                         uri: "https://www.stremio.com/register";
                         halign: center;
                       }
@@ -227,7 +228,7 @@ template $ChelseaSetupDialog : Adw.Dialog {
                   styles ["compact"]
                   icon-name: "media-playback-start-symbolic";
                   title: _("Playback");
-                  description: _("Language codes like eng or jpn pick tracks automatically when a video has several.");
+                  description: _("Pick your languages, and Chelsea chooses matching audio and subtitles when a video has several.");
 
                   child: Adw.Clamp {
                     maximum-size: 340;
@@ -240,12 +241,12 @@ template $ChelseaSetupDialog : Adw.Dialog {
                         title: _("Hardware Decoding");
                       }
 
-                      Adw.EntryRow audio_language_row {
-                        title: _("Audio Languages");
+                      Adw.ComboRow audio_language_row {
+                        title: _("Audio Language");
                       }
 
-                      Adw.EntryRow subtitle_language_row {
-                        title: _("Subtitle Languages");
+                      Adw.ComboRow subtitle_language_row {
+                        title: _("Subtitle Language");
                       }
                     };
                   };

@@ -7,6 +7,7 @@ from ... import profiles
 from ...components.avatars import load_avatar
 from ...components.download_location import choose_folder, folder_label
 from ...gpu import nvidia_available
+from ...languages import setup_language_row
 
 
 PROFILES = ("soft", "balanced", "fast")
@@ -27,6 +28,9 @@ class PreferencesDialog(Adw.PreferencesDialog):
     ask_location_row = Gtk.Template.Child()
     audio_language_row = Gtk.Template.Child()
     subtitle_language_row = Gtk.Template.Child()
+    hide_subtitles_row = Gtk.Template.Child()
+    group_streams_row = Gtk.Template.Child()
+    open_last_profile_row = Gtk.Template.Child()
     profile_row = Gtk.Template.Child()
     cache_row = Gtk.Template.Child()
     upload_row = Gtk.Template.Child()
@@ -45,8 +49,11 @@ class PreferencesDialog(Adw.PreferencesDialog):
         self.settings.bind("torrent-upload", self.upload_row, "active", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ask-download-location", self.ask_location_row, "active", Gio.SettingsBindFlags.DEFAULT)
         self.download_folder_row.set_subtitle(folder_label(self.settings))
-        self.audio_language_row.set_text(self.settings.get_string("audio-language"))
-        self.subtitle_language_row.set_text(self.settings.get_string("subtitle-language"))
+        setup_language_row(self.audio_language_row, self.settings, "audio-language")
+        setup_language_row(self.subtitle_language_row, self.settings, "subtitle-language")
+        self.settings.bind("hide-other-subtitles", self.hide_subtitles_row, "active", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("group-streams", self.group_streams_row, "active", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("open-last-profile", self.open_last_profile_row, "active", Gio.SettingsBindFlags.DEFAULT)
 
         profile = self.settings.get_string("torrent-profile")
         self.profile_row.set_selected(PROFILES.index(profile) if profile in PROFILES else 1)
@@ -69,14 +76,6 @@ class PreferencesDialog(Adw.PreferencesDialog):
 
     def on_profile_changed(self, row, pspec):
         self.settings.set_string("torrent-profile", PROFILES[row.get_selected()])
-
-    @Gtk.Template.Callback()
-    def on_audio_language_applied(self, row):
-        self.settings.set_string("audio-language", row.get_text().strip())
-
-    @Gtk.Template.Callback()
-    def on_subtitle_language_applied(self, row):
-        self.settings.set_string("subtitle-language", row.get_text().strip())
 
     @Gtk.Template.Callback()
     def on_sign_in_activated(self, button):

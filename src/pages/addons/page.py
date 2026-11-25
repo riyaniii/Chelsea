@@ -7,7 +7,6 @@ from ...components import links
 from ...components.link_dialog import LinkDialog
 from ...integrations import models
 from ...integrations.endpoints import addonBase, isAddonLink
-from ...performance import timed
 from .addon_row import AddonRow
 
 
@@ -56,8 +55,7 @@ class AddonsPage(Adw.Bin):
 
     async def load_catalog(self):
         try:
-            with timed("loading the addon catalog"):
-                addons = await self.integration.getAddonCatalog()
+            addons = await self.integration.getAddonCatalog()
         except Exception as error:
             self.toast(_("Could not load the addon catalog"))
             print(f"addon catalog: {error}")

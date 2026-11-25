@@ -136,11 +136,10 @@ class Downloads(GObject.Object):
         self.update_active()
         self.save_history()
 
-    async def close(self):
+    def close(self):
         for task in self.tasks.values():
             task.cancel()
         self.save_history()
-        await self.http.aclose()
 
     async def source_url(self, item: models.Download) -> str:
         if not item.info_hash:

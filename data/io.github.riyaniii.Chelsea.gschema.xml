@@ -44,12 +44,27 @@
     <key name="audio-language" type="s">
       <default>''</default>
       <summary>Preferred audio languages</summary>
-      <description>A comma separated list of language codes passed to mpv as alang, for example "eng,jpn".</description>
+      <description>A comma separated list of language codes passed to mpv as alang, for example "eng,en".</description>
     </key>
     <key name="subtitle-language" type="s">
       <default>''</default>
       <summary>Preferred subtitle languages</summary>
-      <description>A comma separated list of language codes passed to mpv as slang, for example "eng".</description>
+      <description>A comma separated list of language codes passed to mpv as slang, for example "eng,en".</description>
+    </key>
+    <key name="hide-other-subtitles" type="b">
+      <default>false</default>
+      <summary>Hide other subtitle languages</summary>
+      <description>Only list subtitles in the preferred subtitle language.</description>
+    </key>
+    <key name="group-streams" type="b">
+      <default>true</default>
+      <summary>Group streams by addon</summary>
+      <description>Show a tab for each addon in the stream list instead of one list with every stream.</description>
+    </key>
+    <key name="open-last-profile" type="b">
+      <default>false</default>
+      <summary>Open the last profile</summary>
+      <description>Skip the profile picker and open the last used profile when Chelsea starts.</description>
     </key>
     <key name="volume" type="d">
       <range min="0" max="130"/>

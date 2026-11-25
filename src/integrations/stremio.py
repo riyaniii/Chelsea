@@ -89,6 +89,8 @@ class Stremio(Integration):
         self.user = {}
         self.manifests = {}
         self.library_items = {}
+        self.last_addons = None
+        self.last_library = None
         self.http = httpx.AsyncClient(
             headers=HEADERS,
             timeout=httpx.Timeout(API_TIMEOUT, pool=None),
@@ -107,6 +109,8 @@ class Stremio(Integration):
         self.avatar_url = profile.get("avatar", "")
         self.signed_in = False
         self.library_items = {}
+        self.last_addons = None
+        self.last_library = None
         for (item_type, key), model in self.loaded_models.items():
             if item_type == 'Meta':
                 model.update_data(in_library=False, progress=0.0)
@@ -120,7 +124,7 @@ class Stremio(Integration):
     async def start(self):
         if self.is_account:
             email = self.profile["email"]
-            self.auth_key = self.secrets.load(email)
+            self.auth_key = await asyncio.to_thread(self.secrets.load, email)
             if not self.auth_key:
                 raise LoginFailed(_("Sign in again to use this profile"))
             try:
@@ -135,11 +139,6 @@ class Stremio(Integration):
 
     async def refresh(self):
         await asyncio.gather(self.refreshAddons(), self.refreshLibrary(), return_exceptions=True)
-
-    async def close(self):
-        await super().close()
-        await self.http.aclose()
-
 
     async def request(self, method: str, payload: dict) -> dict | list:
         try:
@@ -350,6 +349,9 @@ class Stremio(Integration):
                 entries = await self.localAddonEntries()
         else:
             entries = await self.localAddonEntries()
+        if entries == self.last_addons:
+            return
+        self.last_addons = entries
 
         addons = []
         for transport_url, manifest, flags in entries:
@@ -554,6 +556,9 @@ class Stremio(Integration):
             raws = await self.authed("datastoreGet", {"collection": LIBRARY_COLLECTION, "ids": [], "all": True})
         else:
             raws = await asyncio.to_thread(self.readLocalLibrary)
+        if raws == self.last_library:
+            return
+        self.last_library = copy.deepcopy(raws)
         items = [self.makeLibraryItem(raw) for raw in raws or [] if raw.get("_id")]
         self.library_items = {item.id: item for item in items}
         self.replace(self.library, items)

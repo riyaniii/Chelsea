@@ -7,7 +7,6 @@ from gi.repository import Adw, Gio, GLib, GObject, Gtk
 from ...components.file_grid import file_icon
 from ...integrations import models
 from ...integrations.nuvio import isVideo
-from ...performance import timed
 
 FILE_ATTRIBUTES = "standard::display-name,standard::type,standard::icon,standard::is-hidden"
 BATCH_SIZE = 200
@@ -141,19 +140,18 @@ class DownloadsPage(Adw.Bin):
     async def load_entries(self, folder: Gio.File):
         downloads = {item.path: item for item in self.downloads.store}
         entries = []
-        with timed(f"listing {folder.get_path()}"):
-            try:
-                enumerator = await folder.enumerate_children_async(
-                    FILE_ATTRIBUTES, Gio.FileQueryInfoFlags.NONE, GLib.PRIORITY_DEFAULT)
-                while True:
-                    infos = await enumerator.next_files_async(BATCH_SIZE, GLib.PRIORITY_DEFAULT)
-                    if not infos:
-                        break
-                    for info in infos:
-                        if not info.get_is_hidden():
-                            entries.append(self.make_entry(folder, info, downloads))
-            except GLib.Error as error:
-                print(f"downloads: could not list {folder.get_path()}: {error.message}")
+        try:
+            enumerator = await folder.enumerate_children_async(
+                FILE_ATTRIBUTES, Gio.FileQueryInfoFlags.NONE, GLib.PRIORITY_DEFAULT)
+            while True:
+                infos = await enumerator.next_files_async(BATCH_SIZE, GLib.PRIORITY_DEFAULT)
+                if not infos:
+                    break
+                for info in infos:
+                    if not info.get_is_hidden():
+                        entries.append(self.make_entry(folder, info, downloads))
+        except GLib.Error as error:
+            print(f"downloads: could not list {folder.get_path()}: {error.message}")
         listed = {entry.file.get_path() for entry in entries}
         for path, item in downloads.items():
             if Path(path).parent == Path(folder.get_path()) and path not in listed:
